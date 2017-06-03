@@ -22,9 +22,10 @@ class CategoriaController extends Controller
         if($request)
         {
             $query = trim($request->get('searchText'));
-            $categorias = DB::table('categoria')->where('nombre','LIKE','%'.$query.'%')
+            $categorias = DB::table('categoria')
+            ->where('nombre','LIKE','%'.$query.'%')
             ->where('condicion','=','1')
-            ->orderBy('idcategoria','desc')
+            ->orderBy('idcategoria','asc')
             ->paginate(7);
             return view('inventario.categoria.index',["categorias"=>$categorias,"searchText"=>$query]);
         }
@@ -47,7 +48,8 @@ class CategoriaController extends Controller
     }
     public function show($id)
     {
-        return view("inventario.categoria.show",["categoria"=>Categoria::findOrFail($id)]);
+       
+       return view("inventario.categoria.show",["categoria"=>Categoria::findOrFail($id)]);
     }
     public function edit($id)
     {

@@ -93,6 +93,8 @@
               <ul class="treeview-menu">
                 <li><a href="/inventario/articulo"><i class="fa fa-circle-o"></i> Artículos</a></li>
                 <li><a href="/inventario/categoria"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                <li><a href="/inventario/almacen"><i class="fa fa-circle-o"></i> Almacenes</a></li>
+
               </ul>
             </li>
             

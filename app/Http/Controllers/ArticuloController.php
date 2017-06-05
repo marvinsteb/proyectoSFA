@@ -68,11 +68,11 @@ class ArticuloController extends Controller
     {
         $articulo = Articulo::findOrFail($id);
         $categorias = DB::table('categoria')->where('condicion','=','1')->get();
-        return view("inventario.articulo.edit",["articulo"=>$articulo,"cagetorias"=>$categorias]);
+        return view("inventario.articulo.edit",["articulo"=>$articulo,"categorias"=>$categorias]);
     }
-    public function update(CategoriaFormRequest $request, $id)
+    public function update(ArticuloFormRequest $request, $id)
     {
-        $articulo = new Articulo;
+         $articulo = Articulo::findOrFail($id);
          $articulo->descripcion = $request->get('descripcion');
          $articulo->unidad = $request->get('unidad');
          $articulo->idcategoria = $request->get('idcategoria');

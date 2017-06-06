@@ -2,7 +2,7 @@
 @section ('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Editar Almacén: {{ $almacen->nombre}}</h3>
+			<h3>Nuevo Vendedor</h3>
 			@if (count($errors)>0)
 			<div class="alert alert-danger">
 				<ul>
@@ -13,15 +13,19 @@
 			</div>
 			@endif
 
-			{!!Form::model($almacen,['method'=>'PATCH','route'=>['inventario.almacen.update',$almacen->idalmacen]])!!}
+			{!!Form::open(array('url'=>'ventas/vendedor','method'=>'POST','autocomplete'=>'off'))!!}
             {{Form::token()}}
             <div class="form-group">
             	<label for="nombre">Nombre</label>
-            	<input type="text" name="nombre" class="form-control" value="{{$almacen->nombre}}" placeholder="Nombre...">
+            	<input type="text" name="nombre" class="form-control" placeholder="Nombre...">
             </div>
             <div class="form-group">
-            	<label for="ubicacion">Ubicación</label>
-            	<input type="text" name="ubicacion" class="form-control" value="{{$almacen->ubicacion}}" placeholder="Ubicación...">
+            	<label for="correo">Correo</label>
+            	<input type="text" name="correo" class="form-control" placeholder="Correo...">
+            </div>
+            <div class="form-group">
+            	<label for="telefono">Teléfono</label>
+            	<input type="text" name="telefono" class="form-control" placeholder="Teléfono...">
             </div>
             <div class="form-group">
             	<button class="btn btn-primary" type="submit">Guardar</button>
@@ -32,10 +36,4 @@
             
 		</div>
 	</div>
-
-
-
-
-	
-
-@endsection 
+@endsection

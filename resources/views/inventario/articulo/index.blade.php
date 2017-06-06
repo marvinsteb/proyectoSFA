@@ -2,7 +2,7 @@
 @section ('contenido')
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Articulo <a href="articulo/create"><button class="btn btn-success">Nuevo</button></a></h3>
+		<h3>Listado de Articulos  <a href="articulo/create"><button class="btn btn-success">Nuevo</button></a></h3>
 		@include('inventario.articulo.search')
 	</div>
 </div>
@@ -14,7 +14,7 @@
 				<thead>
 					<th>Id</th>
 					<th>Descripción</th>
-					<th>unidad</th>
+					<th>Unidad</th>
 					<th>Categoría</th>
 					<th>Opciones</th>
 				</thead>

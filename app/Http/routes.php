@@ -20,3 +20,9 @@ Route::resource('inventario/categoria','CategoriaController');
 Route::resource('inventario/articulo','ArticuloController');
 
 Route::resource('inventario/almacen','AlmacenController');
+
+Route::resource('ventas/cliente','ClienteController');
+
+Route::resource('ventas/vendedor','VendedorController');
+
+Route::resource('configuracion/serie','SerieController');

@@ -109,6 +109,7 @@
                 <li><a href="compras/proveedor"><i class="fa fa-circle-o"></i> Proveedores</a></li>
               </ul>
             </li>
+
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-shopping-cart"></i>
@@ -116,10 +117,24 @@
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="ventas/venta"><i class="fa fa-circle-o"></i> Ventas</a></li>
-                <li><a href="ventas/cliente"><i class="fa fa-circle-o"></i> Clientes</a></li>
+                <li><a href="/ventas/factura"><i class="fa fa-circle-o"></i> Facturas</a></li>
+                <li><a href="/ventas/cliente"><i class="fa fa-circle-o"></i> Clientes</a></li>
+                <li><a href="/ventas/vendedor"><i class="fa fa-circle-o"></i> Vendedores</a></li>
               </ul>
             </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-gears"></i>
+                <span>Configuración</span>
+                 <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/configuracion/serie"><i class="fa fa-circle-o"></i> Series</a></li>
+              </ul>
+            </li>
+
+            
                        
             <li class="treeview">
               <a href="#">

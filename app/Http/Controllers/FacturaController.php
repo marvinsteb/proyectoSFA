@@ -46,10 +46,8 @@ class FacturaController extends Controller
         $clientes = DB::table('cliente')->where('cliente.estado','=','1')->get();
         $vendedores = DB::table('vendedor')->where('vendedor.estado','=','1')->get();
         $almacenes = DB::table('almacen')->get();
-        $articulos = DB::table('inventario as inve')
-            ->select('inve.id_inventario','inve.descripcion','inve.unidad','cat.nombre as categoria')
-            ->where('inve.estado','=','1')->get();
-        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"almacenes"=>$almacenes ]);
+        $articulos = DB::table('inventario as inve')->where('inve.estado','=','1')->get();
+        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"almacenes"=>$almacenes,"articulos"=>$articulos ]);
     }
     
     public function store(FacturaFormRequest $request)
@@ -65,12 +63,12 @@ class FacturaController extends Controller
                   $factura->estado = 1;
                   $factura->fecha_documento = $request->get('fecha_documento');
                   $factura->fecha_creacion = $date; 
-                  $factura->cliente_id = $request->get('cliente_id');
-                  $factura->vendedor_id= $request->get('vendedor_id');
+                  $factura->cliente_id = $request->get('clienteid');
+                  $factura->vendedor_id= $request->get('vendedorid');
                   $factura->save();
                   
-                  $idarticulo = $request->get('id_inv');
-                  $idalmacen = $request->get('id_almacen');
+                  $idarticulo = $request->get('idinv');
+                  $idalmacen = $request->get('idalmacen');
                   $cantidad = $request->get('cantidad');
                   $precio = $request->get('precio');
                   $impuesto = $request->get('impuesto');
@@ -97,11 +95,7 @@ class FacturaController extends Controller
             DB::rollback();
         }
 
-         $date = Carbon::now();
-         $date = $date->toDateString();
 
-         $cliente->estado = 1 ;
-         $cliente->save();
          return Redirect::to('ventas/factura');
 
     }

@@ -20,6 +20,7 @@
                     <th>Correo</th>
                     <th>Fecha de creacion</th>
                     <th>Saldo</th>
+					<th>Opciones</th>
 				</thead>
                @foreach ($clientes as $cliente)
 				<tr>

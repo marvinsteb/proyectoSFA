@@ -34,8 +34,7 @@ class VendedorController extends Controller
     }
     public function create()
     {
-        $vendedores = DB::table('vendedor')->where('estado','=','1')->get();
-        return view("ventas/vendedor.create",["vendedores" => $vendedores ]);
+        return view("ventas/vendedor.create");
     }
     
     public function store(VendedorFormRequest $request)

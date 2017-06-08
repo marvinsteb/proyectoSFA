@@ -34,8 +34,7 @@ class SerieController extends Controller
     }
     public function create()
     {
-        $series = DB::table('serie')->where('estado','=','1')->get();
-        return view("configuracion/serie.create",["series" => $series ]);
+        return view("configuracion/serie.create");
     }
     
     public function store(SerieFormRequest $request)
@@ -46,7 +45,7 @@ class SerieController extends Controller
          $serie->resolucion = $request->get('resolucion');
          $serie->numero_inicial = $request->get('inicial');
          $serie->numero_final = $request->get('final');
-         $serie->documento_siguiente = 0;
+         $serie->documento_siguiente = 1;
          $serie->estado = 1 ;
          $serie->save();
          return Redirect::to('configuracion/serie');

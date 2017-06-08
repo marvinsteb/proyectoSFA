@@ -1,0 +1,19 @@
+http://www.guerrerotome.com/?p=205
+
+configurar una ip estatica 
+sudo nano /etc/network/interfaces
+configurar dns 
+https://www.howtoforge.com/tutorial/install-laravel-on-ubuntu-for-apache/
+
+http://www.dreamingbytes.com/compartir-carpeta-con-samba-en-ubuntu-server/
+
+chmod -R 777 "aca va el path completo de la carpeta Compartidos"
+
+para configurar dns estaticos
+
+sudo nano /etc/resolv.conf
+nameserver 8.8.8.8
+/etc/init.d/networking restart
+
+
+https://es.stackoverflow.com/questions/71658/integrar-laravel-5-apache-en-linux

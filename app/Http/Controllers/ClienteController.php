@@ -33,8 +33,7 @@ class ClienteController extends Controller
     }
     public function create()
     {
-        $clientes = DB::table('cliente')->where('estado','=','1')->get();
-        return view("ventas/cliente.create",["clientes" => $clientes ]);
+        return view("ventas/cliente.create");
     }
     
     public function store(ClienteFormRequest $request)

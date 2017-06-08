@@ -16,13 +16,12 @@ Route::get('/', function () {
 });
 
 Route::resource('inventario/categoria','CategoriaController');
-
 Route::resource('inventario/articulo','ArticuloController');
-
 Route::resource('inventario/almacen','AlmacenController');
+Route::resource('inventario/productoporalmacen','ProductoAlmacenController');
 
 Route::resource('ventas/cliente','ClienteController');
-
 Route::resource('ventas/vendedor','VendedorController');
+Route::resource('ventas/factura','FacturaController');
 
 Route::resource('configuracion/serie','SerieController');

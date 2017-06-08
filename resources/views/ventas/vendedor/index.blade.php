@@ -16,6 +16,7 @@
 					<th>Nombre</th>
 					<th>Correo</th>
 					<th>Telefono</th>
+					<th>Opciones</th>
 				</thead>
                @foreach ($vendedores as $vendedor)
 				<tr>

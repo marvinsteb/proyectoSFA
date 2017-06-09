@@ -28,7 +28,7 @@
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>SFA</b>DB</span>
+          <span class="logo-mini"><b>SFA</b></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>Proyecto SFA</b></span>
         </a>
@@ -48,15 +48,15 @@
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <small class="bg-red">Online</small>
-                  <span class="hidden-xs">Marvin Menchu</span>
+                  <span class="hidden-xs"> {{ Auth::user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
                     
                     <p>
-                     Proyecto sfa 
-                      <small>base de datos2</small>
+                              Proyecto sfa 
+                      <small>base de datos 2</small>
                     </p>
                   </li>
                   
@@ -64,7 +64,7 @@
                   <li class="user-footer">
                     
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Cerrar</a>
+                      <a href="{{url('logout')}}" class="btn btn-default btn-flat">Cerrar</a>
                     </div>
                   </li>
                 </ul>
@@ -95,21 +95,12 @@
                 <li><a href="/inventario/articulo"><i class="fa fa-circle-o"></i> Artículos</a></li>
                 <li><a href="/inventario/categoria"><i class="fa fa-circle-o"></i> Categorías</a></li>
                 <li><a href="/inventario/almacen"><i class="fa fa-circle-o"></i> Almacenes</a></li>
+                <li><a href="/inventario/productoporalmacen"><i class="fa fa-circle-o"></i> Productos por Almacen</a></li>
 
               </ul>
             </li>
             
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-th"></i>
-                <span>Compras</span>
-                 <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="compras/ingreso"><i class="fa fa-circle-o"></i> Ingresos</a></li>
-                <li><a href="compras/proveedor"><i class="fa fa-circle-o"></i> Proveedores</a></li>
-              </ul>
-            </li>
+
 
             <li class="treeview">
               <a href="#">
@@ -143,22 +134,11 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                <li><a href="/configuracion/usuario"><i class="fa fa-circle-o"></i> Usuarios</a></li>
                 
               </ul>
             </li>
-             <li>
-              <a href="#">
-                <i class="fa fa-plus-square"></i> <span>Ayuda</span>
-                <small class="label pull-right bg-red">PDF</small>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
-                <small class="label pull-right bg-yellow">IT</small>
-              </a>
-            </li>
+
                         
           </ul>
         </section>

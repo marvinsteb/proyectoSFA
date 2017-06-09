@@ -110,7 +110,7 @@
 					<select name="pimpuesto"   class="form-control " id="pimpuesto" >
 						    <option value="impu" selected="selected"></option>
 							<option value="1.12">12 %</option>
-							<option value="0.00">Excento</option>             
+							<option value="1.00">Excento</option>             
 					</select>
 			    </div>
 			</div>
@@ -150,6 +150,7 @@
 			</body>
 		<table>
 	</div>
+	<div id= "gtotal"></div>
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="guardar">
 		<div class="form-group">
 			<input name"_token" value="{{csrf_token()}}" type="hidden"></input>
@@ -199,7 +200,7 @@ var fila = '<tr class="selected" id = "fila'+cont+'"><td><button type="button" c
 +')">X</button></td><td><input type="hidden" name="idinv[]" value="'+idarticulo+'">'+articulo
 +'</input></td><td><input type="hidden" name="idalmacen[]" value="'+idalmacen+'" >'+almacen
 +'</input></td><td><input type="hidden" name="cantidad[]" value="'+cantidad+'" >'+cantidad
-+'</input></td><td><input type="hidden" name="cantidad[]" value="'+precio+'" >'+precio
++'</input></td><td><input type="hidden" name="precio[]" value="'+precio+'" >'+precio
 +'</input></td><td><input type="hidden" name="impuesto[]" value="'+impuesto+'" >'+impuesto
 +'</input></td><td>'+subtotal[cont]+'</td></tr>'; 
 

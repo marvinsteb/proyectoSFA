@@ -33,7 +33,7 @@
                     <td>{{ $cliente->fecha_creacion}}</td>
                     <td>{{ $cliente->saldo}}</td>
 					<td>
-						<a href="{{URL::action('ClienteController@edit',$cliente->idcliente)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="#"><button class="btn btn-info">Editar</button></a>
                          <a href="" data-target="#modal-delete-{{$cliente->idcliente}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>

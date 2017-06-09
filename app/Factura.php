@@ -12,16 +12,18 @@ class Factura extends Model
 
     public $timestamps = false ;
     protected $fillable = [
+         'numero_fac',
          'codigo_serie',
          'estado',
          'fecha_documento',
          'fecha_creacion',
          'cliente_id',
          'vendedor_id',
+         'total',
 
     ];
     protected $guarded = [
-        'numero_fac',
-        'total',
+        
+        
     ]; 
 }

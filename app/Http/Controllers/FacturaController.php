@@ -20,7 +20,7 @@ class FacturaController extends Controller
 {
      public function __construct()
     {
-
+        $this->middleware('auth');
     }
     public function index(Request $request)
     {
@@ -31,7 +31,7 @@ class FacturaController extends Controller
             ->join('serie as ser','fac.codigo_serie','=','ser.idserie')
             ->join('cliente as clie','fac.cliente_id','=','clie.idcliente')
             ->join('fac_detalle as dt','fac.idfactura','=','dt.idfactura')
-            ->select('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre',DB::raw('sum(dt.cantidad*dt.precio) as total'))          
+            ->select('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre',DB::raw('sum((dt.cantidad*dt.precio) * dt.impuesto) as total'))          
             ->groupBy('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre')
             ->where('fac.numero_fac','LIKE','%'.$query.'%')
             ->orderBy('fac.numero_fac','desc')
@@ -52,19 +52,21 @@ class FacturaController extends Controller
     
     public function store(FacturaFormRequest $request)
     {
-
-        try
+       /*try
         {
             DB::beginTransaction();
+       */
                   $date = Carbon::now();
-                  $date = $date->toDateString();
+                  $date = $date->toDateString();  
                   $factura = new Factura;
                   $factura->codigo_serie = $request->get('codigoserie');
+                  $factura->numero_fac = 1;
                   $factura->estado = 1;
-                  $factura->fecha_documento = $request->get('fecha_documento');
+                  $factura->fecha_documento = $date;
                   $factura->fecha_creacion = $date; 
                   $factura->cliente_id = $request->get('clienteid');
                   $factura->vendedor_id= $request->get('vendedorid');
+                  $factura->total =  0;
                   $factura->save();
                   
                   $idarticulo = $request->get('idinv');
@@ -72,7 +74,7 @@ class FacturaController extends Controller
                   $cantidad = $request->get('cantidad');
                   $precio = $request->get('precio');
                   $impuesto = $request->get('impuesto');
-                  
+         
                   $contador = 0;
                   while($contador < count($idarticulo))
                   {
@@ -86,16 +88,16 @@ class FacturaController extends Controller
                     $detalle->save();
 
                     $contador = $contador + 1;
-                  }
-            DB::commit();
+                  }               
     
+    /*        DB::commit();
+   
         }
         catch (\Exception $e) 
         {
-            DB::rollback();
-        }
-
-
+            DB::rollback();      
+        }  
+¨*/
          return Redirect::to('ventas/factura');
 
     }

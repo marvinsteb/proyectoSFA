@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::resource('inventario/categoria','CategoriaController');
@@ -25,3 +25,8 @@ Route::resource('ventas/vendedor','VendedorController');
 Route::resource('ventas/factura','FacturaController');
 
 Route::resource('configuracion/serie','SerieController');
+Route::resource('configuracion/usuario','UsuarioController');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

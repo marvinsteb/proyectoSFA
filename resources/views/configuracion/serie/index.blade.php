@@ -39,9 +39,8 @@
                     <td>{{ $serie->numero_inicial}}</td>
                     <td>{{ $serie->numero_final}}</td>
                     <td>{{ $serie->documento_siguiente}}</td>
-					<td>
-						<a href="{{URL::action('SerieController@edit',$serie->idserie)}}"><button class="btn btn-info">Editar</button></a>
-                         <a href="" data-target="#modal-delete-{{$serie->idserie}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>					</td>
+					<td						
+                         <a href="" data-target="#modal-delete-{{$serie->idserie}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>					</td>
 				</tr>
 				
 				@endforeach

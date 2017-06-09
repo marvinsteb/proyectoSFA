@@ -1,8 +1,3 @@
-
-LOCK TABLES factura WRITE;
-
-DROP TRIGGER numerofac;
- 
 DELIMITER |
 CREATE TRIGGER numerofac BEFORE INSERT ON factura
   FOR EACH ROW BEGIN
@@ -17,5 +12,3 @@ CREATE TRIGGER numerofac BEFORE INSERT ON factura
     where idserie = NEW.codigo_serie;
   END
 |
-DELIMITER ;
-UNLOCK TABLES;

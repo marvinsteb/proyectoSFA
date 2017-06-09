@@ -25,7 +25,7 @@
 					<td>{{ $vendedor->correo}}</td>
 					<td>{{ $vendedor->telefono}}</td>
 					<td>
-						<a href="{{URL::action('VendedorController@edit',$vendedor->idvendedor)}}"><button class="btn btn-info">Editar</button></a>
+						<a href="#"><button class="btn btn-info">Editar</button></a>
                          <a href="" data-target="#modal-delete-{{$vendedor->idvendedor}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
 					</td>
 				</tr>

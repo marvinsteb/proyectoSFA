@@ -58,11 +58,11 @@ class AlmacenController extends Controller
          $almacen->ubicacion = $request->get('ubicacion');
          $almacen->update();
          return Redirect::to('inventario/almacen');
-    }
     public function destroy($id)
     {
         /*
         implementar en la base de datos una columna para el estatus 
+        verificar si no existe existencias antes de cambiar el estatus del almacen
            $almacen = almacen::findOrFail($id);
            $almacen->condicion = 0;
            $almacen->update();

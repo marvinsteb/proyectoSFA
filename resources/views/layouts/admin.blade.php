@@ -28,9 +28,9 @@
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>SFA</b></span>
+          <span class="logo-mini"><b>SGC</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Proyecto SFA</b></span>
+          <span class="logo-lg"><b>SGC system</b></span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -55,7 +55,7 @@
                   <li class="user-header">
                     
                     <p>
-                              Proyecto sfa 
+                              SGC system 
                       <small>base de datos 2</small>
                     </p>
                   </li>
@@ -88,18 +88,29 @@
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-laptop"></i>
-                <span>Inventario</span>
+                <span>Vehiculos</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="/inventario/articulo"><i class="fa fa-circle-o"></i> Artículos</a></li>
-                <li><a href="/inventario/categoria"><i class="fa fa-circle-o"></i> Categorías</a></li>
+                <li><a href="/inventario/vehiculo"><i class="fa fa-circle-o"></i>Automovil</a></li>
+                <li><a href="/inventario/marca"><i class="fa fa-circle-o"></i> Marcas</a></li>
                 <li><a href="/inventario/almacen"><i class="fa fa-circle-o"></i> Almacenes</a></li>
-                <li><a href="/inventario/productoporalmacen"><i class="fa fa-circle-o"></i> Productos por Almacen</a></li>
+                <li><a href="/inventario/productoporalmacen"><i class="fa fa-circle-o"></i> Repuestos</a></li>
 
               </ul>
             </li>
             
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-laptop"></i>
+                <span>Importaciones</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/import/importaciones"><i class="fa fa-circle-o"></i>Nueva Importación</a></li>
+              </ul>
+            </li>
 
 
             <li class="treeview">

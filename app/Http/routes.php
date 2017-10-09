@@ -20,13 +20,20 @@ Route::resource('inventario/articulo','ArticuloController');
 Route::resource('inventario/almacen','AlmacenController');
 Route::resource('inventario/productoporalmacen','ProductoAlmacenController');
 
+
+Route::resource('inventario/vehiculo','VehiculoController');
+Route::resource('inventario/marca','MarcaController');
+
 Route::resource('ventas/cliente','ClienteController');
 Route::resource('ventas/vendedor','VendedorController');
 Route::resource('ventas/factura','FacturaController');
 
 Route::resource('configuracion/serie','SerieController');
 Route::resource('configuracion/usuario','UsuarioController');
+Route::resource('import/importaciones','ImportController');
+
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
+

@@ -1,6 +1,6 @@
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
-role="dialog" tabindex="-1" id="modal-delete-{{$cat->idcategoria}}">
-	{{Form::Open(array('action'=>array('CategoriaController@destroy',$cat->idcategoria),'method'=>'delete'))}}
+role="dialog" tabindex="-1" id="modal-delete-{{$vehiculo->idvehiculo}}">
+	{{Form::Open(array('action'=>array('MarcaController@destroy',$vehiculo->idvehiculo),'method'=>'delete'))}}
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -8,10 +8,10 @@ role="dialog" tabindex="-1" id="modal-delete-{{$cat->idcategoria}}">
 				aria-label="Close">
                      <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title">Eliminar Marca</h4>
+                <h4 class="modal-title">Eliminar Vehiculo</h4>
 			</div>
 			<div class="modal-body">
-				<p>Confirme si desea Eliminar la Marca</p>
+				<p>Confirme si desea Eliminar el Vehiculo</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

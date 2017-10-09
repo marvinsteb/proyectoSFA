@@ -5,14 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Proyecto SFA</title>
+    <title>Proyecto SGC</title>
 
     <!-- Fonts -->
-        <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+    <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
-   <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+       <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     <style>
@@ -40,7 +41,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   Proyecto SFA V. 1
+                    Proyecto SGC
                 </a>
             </div>
 
@@ -62,7 +63,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Cerrar Secion</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
                     @endif

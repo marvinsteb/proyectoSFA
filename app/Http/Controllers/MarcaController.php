@@ -48,26 +48,27 @@ class MarcaController extends Controller
     }
     public function show($id)
     {
-       
        return view("inventario.marca.show",["marca"=>Marca::findOrFail($id)]);
     }
+
     public function edit($id)
     {
-        return view("inventario.categoria.edit",["categoria"=>Categoria::findOrFail($id)]);
+        return view("inventario.marca.edit",["marca"=>Marca::findOrFail($id)]);
     }
-    public function update(CategoriaFormRequest $request, $id)
+
+    public function update(MarcaFormRequest $request, $id)
     {
-         $categoria = Categoria::findOrFail($id);
-         $categoria->nombre = $request->get('nombre');
-         $categoria->descripcion = $request->get('descripcion');
-         $categoria->update();
-         return Redirect::to('inventario/categoria');
+         $marca = Marca::findOrFail($id);
+         $marca->nombreMarca = $request->get('nombre');
+         $marca->descripcion = $request->get('descripcion');
+         $marca->update();
+         return Redirect::to('inventario/marca');
     }
     public function destroy($id)
     {
-           $categoria = Categoria::findOrFail($id);
-           $categoria->condicion = 0;
-           $categoria->update();
-           return Redirect::to('inventario/categoria');
+           $marca = Marca::findOrFail($id);
+           $marca->status = 0;
+           $marca->update();
+           return Redirect::to('inventario/marca');
     }
 }

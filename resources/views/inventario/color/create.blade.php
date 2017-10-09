@@ -2,7 +2,7 @@
 @section ('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Editar Marca: {{ $marca->nombre}}</h3>
+			<h3>Nueva Marca</h3>
 			@if (count($errors)>0)
 			<div class="alert alert-danger">
 				<ul>
@@ -13,15 +13,15 @@
 			</div>
 			@endif
 
-			{!!Form::model($marca,['method'=>'PATCH','route'=>['inventario.marca.update',$marca->idmarca]])!!}
+			{!!Form::open(array('url'=>'inventario/categoria','method'=>'POST','autocomplete'=>'off'))!!}
             {{Form::token()}}
             <div class="form-group">
             	<label for="nombre">Nombre</label>
-            	<input type="text" name="nombre" class="form-control" value="{{$marca->nombreMarca}}" placeholder="Nombre...">
+            	<input type="text" name="nombre" class="form-control" placeholder="Nombre...">
             </div>
             <div class="form-group">
             	<label for="descripcion">Descripción</label>
-            	<input type="text" name="descripcion" class="form-control" value="{{$marca->descripcion}}" placeholder="Descripción...">
+            	<input type="text" name="descripcion" class="form-control" placeholder="Descripción...">
             </div>
             <div class="form-group">
             	<button class="btn btn-primary" type="submit">Guardar</button>

@@ -23,7 +23,7 @@ Route::resource('inventario/productoporalmacen','ProductoAlmacenController');
 
 Route::resource('inventario/vehiculo','VehiculoController');
 Route::resource('inventario/marca','MarcaController');
-
+Route::resource('inventario/color','ColorController');
 Route::resource('ventas/cliente','ClienteController');
 Route::resource('ventas/vendedor','VendedorController');
 Route::resource('ventas/factura','FacturaController');

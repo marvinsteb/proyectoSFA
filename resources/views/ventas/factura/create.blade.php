@@ -177,7 +177,7 @@ subtotal=[];
 $("#guardar").hide();
 
 function agregar(){
-	alert("dse agregar");
+
 
 idarticulo = $('#pidinv').val();
 articulo = $('#pidinv option:selected').text();
@@ -190,7 +190,7 @@ precio = $("#pprecio").val();
 
 if(idarticulo != "" && articulo != "" && idalmacen != "" && impuesto !="" && cantidad !="" && precio !="" )
 {
-alert("asignados todos");
+
 
 subtotal[cont] = ((cantidad * precio) * impuesto);
 total = total + subtotal[cont];

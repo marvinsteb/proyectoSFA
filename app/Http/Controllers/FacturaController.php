@@ -42,7 +42,7 @@ class FacturaController extends Controller
     }
     public function create()
     {
-        $series = DB::table('serie')->where('estado','=','1')->get();
+        $series = DB::table('serie')->where('tipo_documento','=','Fac')->get();
         $clientes = DB::table('cliente')->where('cliente.estado','=','1')->get();
         $vendedores = DB::table('vendedor')->where('vendedor.estado','=','1')->get();
         $almacenes = DB::table('almacen')->get();

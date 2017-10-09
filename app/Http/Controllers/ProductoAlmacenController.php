@@ -23,7 +23,7 @@ class ProductoAlmacenController extends Controller
         {
             $query = trim($request->get('searchText'));
             $productosalmacenes = DB::table('producto_almacen')
-            ->where('producto_almacen.id_inve','LIKE','%'.$query.'%')
+            ->where('inve.descripcion','LIKE','%'.$query.'%')
             ->join('inventario as inve','inve.id_inventario','=','producto_almacen.id_inve')
             ->join('almacen','almacen.idalmacen','=','producto_almacen.id_almacen')
             ->select('inve.id_inventario','inve.descripcion','almacen.nombre','producto_almacen.existencia')

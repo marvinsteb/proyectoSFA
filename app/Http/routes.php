@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+
 Route::resource('inventario/categoria','CategoriaController');
 Route::resource('inventario/articulo','ArticuloController');
 Route::resource('inventario/almacen','AlmacenController');
@@ -24,6 +25,9 @@ Route::resource('inventario/productoporalmacen','ProductoAlmacenController');
 Route::resource('inventario/vehiculo','VehiculoController');
 Route::resource('inventario/marca','MarcaController');
 Route::resource('inventario/color','ColorController');
+
+
+
 Route::resource('ventas/cliente','ClienteController');
 Route::resource('ventas/vendedor','VendedorController');
 Route::resource('ventas/factura','FacturaController');
@@ -31,9 +35,13 @@ Route::resource('ventas/factura','FacturaController');
 Route::resource('configuracion/serie','SerieController');
 Route::resource('configuracion/usuario','UsuarioController');
 Route::resource('import/importaciones','ImportController');
+Route::resource('import/proveedor','ProveedorController');
 
 
 Route::auth();
 
+Route::get('test/datepicker', function () {
+    return view('datepicker');
+});
 //Route::get('/home', 'HomeController@index');
 

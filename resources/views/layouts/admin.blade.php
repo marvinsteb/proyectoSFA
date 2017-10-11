@@ -108,7 +108,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="/import/importaciones"><i class="fa fa-circle-o"></i>Nueva Importación</a></li>
+                <li><a href="/import/importaciones"><i class="fa fa-circle-o"></i>Importaciones</a></li>
+                <li><a href="/import/proveedor"><i class="fa fa-circle-o"></i>Proveedores</a></li>
               </ul>
             </li>
 

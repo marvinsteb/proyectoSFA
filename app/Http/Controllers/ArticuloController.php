@@ -1,14 +1,14 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
 use Illuminate\Support\Facades\Redirect;
-use proyectoSFA\Http\Requests\ArticuloFormRequest;
-use proyectoSFA\Articulo;
+use proyectoSeminario\Http\Requests\ArticuloFormRequest;
+use proyectoSeminario\Articulo;
 use DB;
 
 class ArticuloController extends Controller

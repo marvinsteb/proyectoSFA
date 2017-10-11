@@ -1,14 +1,14 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
 use Illuminate\Support\Facades\Redirect;
-use proyectoSFA\Http\Requests\ClienteFormRequest;
-use proyectoSFA\Cliente;
+use proyectoSeminario\Http\Requests\ClienteFormRequest;
+use proyectoSeminario\Cliente;
 use DB;
 use Carbon\Carbon;
 class ClienteController extends Controller

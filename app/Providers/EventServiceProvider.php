@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA\Providers;
+namespace proyectoSeminario\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'proyectoSFA\Events\SomeEvent' => [
-            'proyectoSFA\Listeners\EventListener',
+        'proyectoSeminario\Events\SomeEvent' => [
+            'proyectoSeminario\Listeners\EventListener',
         ],
     ];
 

@@ -151,10 +151,10 @@ return [
         /*
          * Application Service Providers...
          */
-        proyectoSFA\Providers\AppServiceProvider::class,
-        proyectoSFA\Providers\AuthServiceProvider::class,
-        proyectoSFA\Providers\EventServiceProvider::class,
-        proyectoSFA\Providers\RouteServiceProvider::class,
+        proyectoSeminario\Providers\AppServiceProvider::class,
+        proyectoSeminario\Providers\AuthServiceProvider::class,
+        proyectoSeminario\Providers\EventServiceProvider::class,
+        proyectoSeminario\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
     ],

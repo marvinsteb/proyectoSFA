@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA\Providers;
+namespace proyectoSeminario\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

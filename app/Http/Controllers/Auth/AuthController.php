@@ -1,10 +1,10 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers\Auth;
+namespace proyectoSeminario\Http\Controllers\Auth;
 
-use proyectoSFA\User;
+use proyectoSeminario\User;
 use Validator;
-use proyectoSFA\Http\Controllers\Controller;
+use proyectoSeminario\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

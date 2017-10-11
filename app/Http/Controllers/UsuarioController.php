@@ -1,14 +1,14 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
-use proyectoSFA\User;
+use proyectoSeminario\User;
 use Illuminate\Support\Facades\Redirect;
-use proyectoSFA\Http\Requests\SerieFormRequest;
+use proyectoSeminario\Http\Requests\SerieFormRequest;
 use DB;
 
 class UsuarioController extends Controller

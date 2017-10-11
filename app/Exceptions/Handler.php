@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA\Exceptions;
+namespace proyectoSeminario\Exceptions;
 
 use Exception;
 use Illuminate\Validation\ValidationException;

@@ -1,8 +1,8 @@
 <?php
 
-namespace proyectoSFA\Http\Requests;
+namespace proyectoSeminario\Http\Requests;
 
-use proyectoSFA\Http\Requests\Request;
+use proyectoSeminario\Http\Requests\Request;
 
 class CategoriaFormRequest extends Request
 {

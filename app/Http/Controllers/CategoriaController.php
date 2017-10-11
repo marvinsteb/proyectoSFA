@@ -1,14 +1,14 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
-use proyectoSFA\Categoria;
+use proyectoSeminario\Categoria;
 use Illuminate\Support\Facades\Redirect;
-use proyectoSFA\Http\Requests\CategoriaFormRequest;
+use proyectoSeminario\Http\Requests\CategoriaFormRequest;
 use DB;
 
 class CategoriaController extends Controller

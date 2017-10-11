@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA\Jobs;
+namespace proyectoSeminario\Jobs;
 
 use Illuminate\Bus\Queueable;
 

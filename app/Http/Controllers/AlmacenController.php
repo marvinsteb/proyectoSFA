@@ -1,13 +1,13 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
-use proyectoSFA\Almacen;
+use proyectoSeminario\Almacen;
 use Illuminate\Support\Facades\Redirect;
-use proyectoSFA\Http\Requests\AlmacenFormRequest;
+use proyectoSeminario\Http\Requests\AlmacenFormRequest;
 use DB;
 
 class AlmacenController extends Controller

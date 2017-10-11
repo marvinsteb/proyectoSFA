@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => proyectoSFA\User::class,
+            'model' => proyectoSeminario\User::class,
         ],
 
         // 'users' => [

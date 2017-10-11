@@ -1,14 +1,14 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
 use Illuminate\Support\Facades\Redirect;
-use proyectoSFA\Http\Requests\SerieFormRequest;
-use proyectoSFA\Serie;
+use proyectoSeminario\Http\Requests\SerieFormRequest;
+use proyectoSeminario\Serie;
 use DB;
 
 

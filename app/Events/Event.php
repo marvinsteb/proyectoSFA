@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA\Events;
+namespace proyectoSeminario\Events;
 
 abstract class Event
 {

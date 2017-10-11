@@ -1,14 +1,14 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
 use Illuminate\Support\Facades\Redirect;
-use proyectoSFA\Http\Requests\VendedorFormRequest;
-use proyectoSFA\Vendedor;
+use proyectoSeminario\Http\Requests\VendedorFormRequest;
+use proyectoSeminario\Vendedor;
 use DB;
 use Carbon\Carbon;
 

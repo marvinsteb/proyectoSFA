@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA\Http\Requests;
+namespace proyectoSeminario\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

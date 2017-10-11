@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA\Http\Middleware;
+namespace proyectoSeminario\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

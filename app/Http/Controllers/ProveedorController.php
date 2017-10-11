@@ -1,12 +1,12 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
-use proyectoSFA\Proveedor;
+use proyectoSeminario\Proveedor;
 use DB;
 use Carbon\Carbon;
 

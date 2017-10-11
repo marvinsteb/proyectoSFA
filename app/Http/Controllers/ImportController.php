@@ -1,17 +1,17 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers;
+namespace proyectoSeminario\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use proyectoSFA\Http\Requests;
+use proyectoSeminario\Http\Requests;
 
 // revisar estos links, revisa si se utilizan en este modulo
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
-use proyectoSFA\Http\Requests\FacturaFormRequest;
-use proyectoSFA\Factura;
-use proyectoSFA\FacturaDetalle;
+use proyectoSeminario\Http\Requests\FacturaFormRequest;
+use proyectoSeminario\Factura;
+use proyectoSeminario\FacturaDetalle;
 use DB;
 use Carbon\Carbon;
 use Response;

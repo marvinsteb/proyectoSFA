@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA;
+namespace proyectoSeminario;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

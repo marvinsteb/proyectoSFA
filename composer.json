@@ -22,7 +22,7 @@
             "database"
         ],
         "psr-4": {
-            "proyectoSFA\\": "app/"
+            "proyectoSeminario\\": "app/"
         }
     },
     "autoload-dev": {

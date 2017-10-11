@@ -1,8 +1,8 @@
 <?php
 
-namespace proyectoSFA\Http\Controllers\Auth;
+namespace proyectoSeminario\Http\Controllers\Auth;
 
-use proyectoSFA\Http\Controllers\Controller;
+use proyectoSeminario\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordController extends Controller

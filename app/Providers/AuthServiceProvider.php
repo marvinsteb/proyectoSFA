@@ -1,6 +1,6 @@
 <?php
 
-namespace proyectoSFA\Providers;
+namespace proyectoSeminario\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'proyectoSFA\Model' => 'proyectoSFA\Policies\ModelPolicy',
+        'proyectoSeminario\Model' => 'proyectoSeminario\Policies\ModelPolicy',
     ];
 
     /**

@@ -45,9 +45,8 @@ class FacturaController extends Controller
         $series = DB::table('serie')->where('tipo_documento','=','Fac')->get();
         $clientes = DB::table('cliente')->where('cliente.estado','=','1')->get();
         $vendedores = DB::table('vendedor')->where('vendedor.estado','=','1')->get();
-        $almacenes = DB::table('almacen')->get();
         $articulos = DB::table('inventario as inve')->where('inve.estado','=','1')->get();
-        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"almacenes"=>$almacenes,"articulos"=>$articulos ]);
+        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"articulos"=>$articulos ]);
     }
     
     public function store(FacturaFormRequest $request)
@@ -70,7 +69,6 @@ class FacturaController extends Controller
                   $factura->save();
                   
                   $idarticulo = $request->get('idinv');
-                  $idalmacen = $request->get('idalmacen');
                   $cantidad = $request->get('cantidad');
                   $precio = $request->get('precio');
                   $impuesto = $request->get('impuesto');

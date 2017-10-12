@@ -93,13 +93,9 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="/inventario/vehiculo"><i class="fa fa-circle-o"></i>Automovil</a></li>
-                <li><a href="/inventario/marca"><i class="fa fa-circle-o"></i> Marcas</a></li>
-                <li><a href="/inventario/almacen"><i class="fa fa-circle-o"></i> Almacenes</a></li>
-                <li><a href="/inventario/productoporalmacen"><i class="fa fa-circle-o"></i> Repuestos</a></li>
-
+                <li><a href="/inventario/marca"><i class="fa fa-circle-o"></i> Marcas</a></li>               
               </ul>
             </li>
-            
 
             <li class="treeview">
               <a href="#">
@@ -112,6 +108,21 @@
                 <li><a href="/import/proveedor"><i class="fa fa-circle-o"></i>Proveedores</a></li>
               </ul>
             </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-laptop"></i>
+                <span>Taller de reparación</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/inventario/repuesto"><i class="fa fa-circle-o"></i>Repuestos</a></li>
+                <li><a href="/inventario/repuesto"><i class="fa fa-circle-o"></i>Compra de repuestos </a></li>
+                <li><a href="/taller/reparacion"><i class="fa fa-circle-o"></i>Reparaciónes</a></li>                             
+              </ul>
+            </li>
+                        
+
 
 
             <li class="treeview">

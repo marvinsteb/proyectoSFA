@@ -14,7 +14,6 @@ class FacturaDetalle extends Model
     protected $fillable = [
          'idfactura',
          'id_inv',
-         'id_almacen',
          'cantidad',
          'precio',
          'impuesto',

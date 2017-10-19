@@ -38,7 +38,7 @@ class RepuestoController extends Controller
             ->where('rep.descripcion','LIKE','%'.$query.'%')
             ->where('rep.estado','=','1')
             ->orderBy('rep.idrepuesto','asc')
-            ->paginate(7);
+            ->paginate(30);
             return view('inventario.repuesto.index',["repuestos"=>$repuestos,"searchText"=>$query]);
         }
 

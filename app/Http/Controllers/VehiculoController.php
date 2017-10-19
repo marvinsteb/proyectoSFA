@@ -9,9 +9,8 @@ use proyectoSeminario\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 
-use proyectoSeminario\Http\Requests\FacturaFormRequest;
-use proyectoSeminario\Factura;
-use proyectoSeminario\FacturaDetalle;
+use proyectoSeminario\Http\Requests\VehiculoFormRequest;
+use proyectoSeminario\Vehiculo;
 
 use DB;
 use Carbon\Carbon;
@@ -30,7 +29,8 @@ class VehiculoController extends Controller
         {
             $query = trim($request->get('searchText'));
             $vehiculos = DB::table('vehiculo')
-            ->select('vehiculo.idvehiculo','marca.nombreMarca','vehiculo.costo' ,'vehiculo.precio','vehiculo.numpuertas','combustible.combustible','vehiculo.descripcion','color.color','vehiculo.modelo')
+            ->select('vehiculo.idvehiculo','marca.nombreMarca','vehiculo.costo' ,'vehiculo.precio','vehiculo.numpuertas','combustible.combustible','vehiculo.descripcion','color.color','mod.modelo')
+            ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
             ->join('marca','vehiculo.idmarca','=','marca.idmarca')
             ->join('combustible','vehiculo.idcombustible','=','combustible.idcombustible')
             ->join('color','vehiculo.idcolor','=','color.idcolor')
@@ -43,89 +43,56 @@ class VehiculoController extends Controller
     }
     public function create()
     {
-        $series = DB::table('serie')->where('tipo_documento','=','Fac')->get();
-        $clientes = DB::table('cliente')->where('cliente.estado','=','1')->get();
-        $vendedores = DB::table('vendedor')->where('vendedor.estado','=','1')->get();
-        $almacenes = DB::table('almacen')->get();
-        $articulos = DB::table('inventario as inve')->where('inve.estado','=','1')->get();
-        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"almacenes"=>$almacenes,"articulos"=>$articulos ]);
+         $marcas = DB::table('marca')->get();
+         $modelos = DB::table('modelo')
+         ->orderBY('modelo.modelo','desc')->get();
+         $combustibles = DB::table('combustible')->get();  
+         $colores = DB::table('color')->get(); 
+         return view("inventario/vehiculo.create",["marcas" => $marcas
+                                                  ,"modelos"=>$modelos
+                                                  ,"combustibles"=>$combustibles
+                                                  ,"colores"=>$colores]);
     }
     
-    public function store(FacturaFormRequest $request)
+    public function store(VehiculoFormRequest $request)
     {
-       /*try
-        {
-            DB::beginTransaction();
-       */
-                  $date = Carbon::now();
-                  $date = $date->toDateString();  
-                  $factura = new Factura;
-                  $factura->codigo_serie = $request->get('codigoserie');
-                  $factura->numero_fac = 1;
-                  $factura->estado = 1;
-                  $factura->fecha_documento = $date;
-                  $factura->fecha_creacion = $date; 
-                  $factura->cliente_id = $request->get('clienteid');
-                  $factura->vendedor_id= $request->get('vendedorid');
-                  $factura->total =  0;
-                  $factura->save();
-                  
-                  $idarticulo = $request->get('idinv');
-                  $idalmacen = $request->get('idalmacen');
-                  $cantidad = $request->get('cantidad');
-                  $precio = $request->get('precio');
-                  $impuesto = $request->get('impuesto');
-         
-                  $contador = 0;
-                  while($contador < count($idarticulo))
-                  {
-                    $detalle = new FacturaDetalle;
-                    $detalle->idfactura = $factura->idfactura;
-                    $detalle->id_inv =  $idarticulo[$contador];
-                    $detalle->id_almacen = $idalmacen[$contador];
-                    $detalle->cantidad = $cantidad[$contador];
-                    $detalle->precio = $precio[$contador];
-                    $detalle->impuesto = $impuesto[$contador];
-                    $detalle->save();
 
-                    $contador = $contador + 1;
-                  }               
-    
-    /*        DB::commit();
-   
-        }
-        catch (\Exception $e) 
+        $vehiculo = new Vehiculo;
+        $vehiculo->idmarca = $request->get('idmarca');
+        $vehiculo->idmodelo = $request->get('idmodelo');
+        $vehiculo->costo = $request->get('costo'); 
+        $vehiculo->precio = $request->get('precio');      
+        $vehiculo->anio = $request->get('anio');
+        $vehiculo->llave = $request->get('llave');      
+        $vehiculo->numpuertas = $request->get('numpuertas');
+        $vehiculo->lote = $request->get('lote');
+        $vehiculo->idcombustible = $request->get('idcombustible');
+        $vehiculo->idcolor = $request->get('idcolor');
+        $vehiculo->tipomotor = $request->get('tipomotor');
+        $vehiculo->descripcion = $request->get('descripcion');
+        $vehiculo->estado = 1 ;
+        /*
+        revisar para guardar imagen 
+        if(Input::hasFile('imagen'))
         {
-            DB::rollback();      
-        }  
-¨*/
-         return Redirect::to('ventas/factura');
+           $file=Input::file('imagen');
+           $file->move(public_path().'/imagenes/vehiculos/',$file->getClientOriginalName());
+           $vehiculo->imagen=$file->getClientOriginalName();
+        }
+        
+        */
+        $vehiculo->save();
+       
+         return Redirect::to('inventario/vehiculo');
 
     }
     public function show($id)
     {
-        $factura = DB::table('factura as fac')
-            ->join('serie as ser','fac.codigo_serie','=','ser.idserie')
-            ->join('cliente as clie','fac.cliente_id','=','clie.idcliente')
-            ->join('fac_detalle as dt','fac.idfactura','=','dt.idfactura')
-            ->select('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre',DB::raw('sum(dt.cantidad*dt.precio) as total'))  
-            ->where('fac.idfactura','=', $id)
-            ->first();
        
-       $detalle =DB::table('fac_detalle as dt')
-                ->join('inventario as articulos','dt.id_inv'.'=','articulos.id_inventario')
-                ->join('categoria','categoria.idcategoria','=','articulos.idcategoria')
-                ->select('articulos.descripcion','articulos.unidad','categoria.nombre','dt.cantidad','dt.precio')
-                ->where('dt.idfactura','=',$id)
-                ->get();
-       return view("ventas/factura.show",["cliente"=>$factura,"detalles"=>$detalle]);
     }
 
     public function destroy($id)
     {
-           $factura = Factura::findOrFail($id);
-           $factura->estado = 0;
-           $factura->update();
-           return Redirect::to('ventas/factura');
+        
     }
 }

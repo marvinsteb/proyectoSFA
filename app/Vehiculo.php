@@ -11,14 +11,19 @@ class Vehiculo extends Model
     public $timestamps = false;
     protected $fillable = 
     [
-    	'idmarca',
-        'modelo',
+        'idmarca',
+        'idmodelo',
         'costo',
         'precio',
+        'anio',
+        'llave',
         'numpuertas',
+        'lote',
         'idcombustible',
         'descripcion',
-        'idcolor'
+        'idcolor',
+        'estado',
+        'tipomotor',
     ];
     protected $guarded = [
        

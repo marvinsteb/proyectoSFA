@@ -40,6 +40,7 @@ Route::resource('import/importaciones','ImportController');
 Route::resource('import/proveedor','ProveedorController');
 
 Route::resource('taller/reparacion', 'ReparacionController');
+Route::resource('taller/comprarepuesto','CompraRepuestoController');
 
 Route::auth();
 

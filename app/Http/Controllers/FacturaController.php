@@ -8,9 +8,11 @@ use proyectoSeminario\Http\Requests;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
+
 use proyectoSeminario\Http\Requests\FacturaFormRequest;
 use proyectoSeminario\Factura;
 use proyectoSeminario\FacturaDetalle;
+
 use DB;
 use Carbon\Carbon;
 use Response;
@@ -29,6 +31,7 @@ class FacturaController extends Controller
             $query = trim($request->get('searchText'));
             $facturas = DB::table('factura as fac')
             ->join('serie as ser','fac.codigo_serie','=','ser.idserie')
+            
             ->join('cliente as clie','fac.cliente_id','=','clie.idcliente')
             ->join('fac_detalle as dt','fac.idfactura','=','dt.idfactura')
             ->select('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre',DB::raw('sum((dt.cantidad*dt.precio) * dt.impuesto) as total'))          

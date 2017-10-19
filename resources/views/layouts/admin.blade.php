@@ -87,7 +87,7 @@
             
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-laptop"></i>
+                <i class="fa fa-automobile"></i>
                 <span>Vehiculos</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -99,25 +99,26 @@
 
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-laptop"></i>
+                <i class="fa fa-shopping-cart"></i>
                 <span>Importaciones</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="/import/importaciones"><i class="fa fa-circle-o"></i>Importaciones</a></li>
+                <li><a href="/import/facturaimportacion"><i class="fa fa-circle-o"></i>Factura de Importación</a></li>               
+                <li><a href="/import/bl"><i class="fa fa-circle-o"></i>B.L.</a></li>
                 <li><a href="/import/proveedor"><i class="fa fa-circle-o"></i>Proveedores</a></li>
               </ul>
             </li>
 
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-laptop"></i>
+                <i class="fa  fa-wrench"></i>
                 <span>Taller de reparación</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
                 <li><a href="/inventario/repuesto"><i class="fa fa-circle-o"></i>Repuestos</a></li>
-                <li><a href="/inventario/repuesto"><i class="fa fa-circle-o"></i>Compra de repuestos </a></li>
+                <li><a href="/taller/comprarepuesto"><i class="fa fa-circle-o"></i>Compra de repuestos </a></li>
                 <li><a href="/taller/reparacion"><i class="fa fa-circle-o"></i>Reparaciónes</a></li>                             
               </ul>
             </li>

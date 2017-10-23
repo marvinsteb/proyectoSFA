@@ -33,9 +33,10 @@ class ClienteController extends Controller
     }
     public function create()
     {
-        return view("ventas/cliente.create");
+        $tipoDeProveedores = DB::table('tipoprov')->get();
+        return view("ventas/cliente.create",["tipoDeProveedores"=>$tipoDeProveedores]);
     }
-    
+ 
     public function store(ClienteFormRequest $request)
     {
 

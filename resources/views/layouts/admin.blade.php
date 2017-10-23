@@ -104,7 +104,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="/import/facturaimportacion"><i class="fa fa-circle-o"></i>Factura de Importación</a></li>               
+                <li><a href="/import/importaciones"><i class="fa fa-circle-o"></i>Factura de Importación</a></li>               
                 <li><a href="/import/bl"><i class="fa fa-circle-o"></i>B.L.</a></li>
                 <li><a href="/import/proveedor"><i class="fa fa-circle-o"></i>Proveedores</a></li>
               </ul>

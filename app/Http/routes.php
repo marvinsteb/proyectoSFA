@@ -37,7 +37,9 @@ Route::resource('configuracion/usuario','UsuarioController');
 
 
 Route::resource('import/importaciones','ImportController');
+Route::resource('import/bl','BlController');
 Route::resource('import/proveedor','ProveedorController');
+
 
 Route::resource('taller/reparacion', 'ReparacionController');
 Route::resource('taller/comprarepuesto','CompraRepuestoController');

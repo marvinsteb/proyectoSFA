@@ -17,7 +17,7 @@
             {{Form::token()}}
 			<div class = "row">
 							
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 									<div class="form-group">
 										<label>Marca</label>
 										<select name="idmarca" class="form-control">
@@ -27,7 +27,7 @@
 										</select>
 									</div>        
 								</div>
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 									<div class="form-group">
 										<label>Modelo</label>
 										<select name="idmodelo" class="form-control">
@@ -55,7 +55,7 @@
 											<input type="text"  name="anio"  id="datepikeranio" required value="{{old('anio')}}"  class="form-control" placeholder="Ingresa el año...">
 										</div>        
 								</div>
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="col-lg-4 col-md-4 col-sm-4s col-xs-12">
 									<div class="form-group">
 										<label>Llaves</label>
 										<select name="llave" class="form-control">
@@ -76,7 +76,7 @@
 											<input type="text"  name="lote"  required value="{{old('lote')}}"  class="form-control" placeholder="No. lote...">
 										</div>        
 								</div>
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 									<div class="form-group">
 										<label>Tipo de combustible</label>
 										<select name="idcombustible" class="form-control">
@@ -87,7 +87,7 @@
 									</div>        
 								</div>
 
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 									<div class="form-group">
 										<label>Color</label>
 										<select name="idcolor" class="form-control">

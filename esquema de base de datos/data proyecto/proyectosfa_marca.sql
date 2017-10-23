@@ -21,7 +21,7 @@
 
 LOCK TABLES `marca` WRITE;
 /*!40000 ALTER TABLE `marca` DISABLE KEYS */;
-INSERT INTO `marca` VALUES (1,'Mazda ','123456',1),(2,'Chevrolet ','',1),(3,'Volkswagen','',1),(4,'Toyota ','',1),(5,'Hyundai','',1),(6,'Nissan ','',1),(7,'Toyota ','',1),(8,'Ford ','',1),(9,'Fiat ','',1),(10,'Honda','',1),(11,'Chevrolet','',1),(12,'xx','',1);
+INSERT INTO `marca` VALUES (1,'Mazda ','123456',1),(2,'Chevrolet ','',0),(3,'Volkswagen','',1),(4,'Toyota ','',1),(5,'Hyundai','',1),(6,'Nissan ','',1),(7,'Toyota ','',1),(8,'Ford ','',1),(9,'Fiat ','',1),(10,'Honda','',1),(11,'Chevrolet','',1),(12,'xx','',1);
 /*!40000 ALTER TABLE `marca` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-18 12:22:53
+-- Dump completed on 2017-10-19 15:46:48

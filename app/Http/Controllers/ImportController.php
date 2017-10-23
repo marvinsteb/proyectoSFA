@@ -37,18 +37,33 @@ class ImportController extends Controller
             ->where('fac.numero_fac','LIKE','%'.$query.'%')
             ->orderBy('fac.numero_fac','desc')
             ->paginate(7);
-            return view('importaciones/facturaimport.index',["facturas"=>$facturas,"searchText"=>$query]);
+            return view('import/facturaimport.index',["facturas"=>$facturas,"searchText"=>$query]);
         }
 
     }
     public function create()
     {
-        $series = DB::table('serie')->where('tipo_documento','=','Fac')->get();
-        $clientes = DB::table('cliente')->where('cliente.estado','=','1')->get();
-        $vendedores = DB::table('vendedor')->where('vendedor.estado','=','1')->get();
-        $almacenes = DB::table('almacen')->get();
-        $articulos = DB::table('inventario as inve')->where('inve.estado','=','1')->get();
-        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"almacenes"=>$almacenes,"articulos"=>$articulos ]);
+    
+        $proveedores = DB::table('proveedor')
+                       ->where('proveedor.estado','=','1')
+                       ->where('proveedor.idtipo','=','2')->get();
+        $vehiculos = DB::table('vehiculo')->where('vehiculo.estado','=','1')
+        ->select('vehiculo.idvehiculo'
+                ,'vehiculo.lote'
+                ,'marca.nombreMarca'
+                ,'vehiculo.costo' 
+                ,'vehiculo.precio'
+                ,'vehiculo.numpuertas'
+                ,'combustible.combustible'
+                ,'vehiculo.descripcion'
+                ,'color.color'
+                ,'mod.modelo')
+        ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
+        ->join('marca','vehiculo.idmarca','=','marca.idmarca')
+        ->join('combustible','vehiculo.idcombustible','=','combustible.idcombustible')
+        ->join('color','vehiculo.idcolor','=','color.idcolor')
+        ->get();
+        return view("import/facturaimport.create",["proveedores" => $proveedores,"vehiculos"=>$vehiculos ]);
     }
     
     public function store(FacturaFormRequest $request)
@@ -99,7 +114,7 @@ class ImportController extends Controller
             DB::rollback();      
         }  
 ¨*/
-         return Redirect::to('ventas/factura');
+         return Redirect::to('import/facturaimport');
 
     }
     public function show($id)
@@ -118,7 +133,7 @@ class ImportController extends Controller
                 ->select('articulos.descripcion','articulos.unidad','categoria.nombre','dt.cantidad','dt.precio')
                 ->where('dt.idfactura','=',$id)
                 ->get();
-       return view("ventas/factura.show",["cliente"=>$factura,"detalles"=>$detalle]);
+       return view("import/facturaimport.show",["cliente"=>$factura,"detalles"=>$detalle]);
     }
 
     public function destroy($id)
@@ -126,6 +141,6 @@ class ImportController extends Controller
            $factura = Factura::findOrFail($id);
            $factura->estado = 0;
            $factura->update();
-           return Redirect::to('ventas/factura');
+           return Redirect::to('import/facturaimport');
     }
 }

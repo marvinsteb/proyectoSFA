@@ -2,7 +2,7 @@
 @section ('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<h3>Nueva Factura</h3>
+			<h3>Nueva Factura de importación </h3>
 			@if (count($errors)>0)
 			<div class="alert alert-danger">
 				<ul>
@@ -16,48 +16,33 @@
     </div>
 
 
-			{!!Form::open(array('url'=>'ventas/factura','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
+			{!!Form::open(array('url'=>'import/facturaimport','method'=>'POST','autocomplete'=>'off','files'=>'true'))!!}
             {{Form::token()}}
-<div class = "row">
-	    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-			<div class="form-group">
-				<label>Serie</label>
-				<select name="codigoserie" class="form-control">
-					@foreach($series as $serie)
-						<option value="{{$serie->idserie}}">{{$serie->serie}}</option>
-					@endforeach            
-				</select>
-			</div>        
-    	</div>
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+				<div class="form-group">
+					<label for="nofactura">No. Factura</label>
+					<input type="text" name="nofactura" required value="{{old('nofactura')}}"  class="form-control" placeholder="No Factura...">
+				</div>        
+		</div>
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+				<div class="form-group">
+            	<label for="fechadoc">Fecha del Documento</label>
+            	<input type="text" name="fechadoc" id="fechadoc"   class="form-control" placeholder="Fecha del documento...">
+            	</div>        
+			</div>
 
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	        <div class="form-group">
-            	<label for="fecha_documento">Fecha Documento</label>
-            	<input type="text" name="fecha_documento" required value="{{old('fecha_documento')}}"  class="form-control" placeholder="Fecha...">
-            </div>        
-    </div>
-
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-          <div class="form-group">
-            	<label for="unidad">Cliente</label>
-            	<select name="clienteid" id="clienteid"  class="form-control selectpicker" data-live-search = "true">
-					@foreach($clientes as $cliente)
-						<option value="{{$cliente->idcliente}}">{{$cliente->nombre}}</option>
-					@endforeach            
-            	</select>
-            </div>  
-    </div>
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
-					<label for="vendedorid">Vendedor</label>
-					<select name="vendedorid" id="vendedorid"  class="form-control selectpicker"  data-live-search = "true">
-					@foreach($vendedores as $vendedor)
-						<option value="{{$vendedor->idvendedor}}">{{$vendedor->nombre}}</option>
-					@endforeach            
-				    </select>
-			</div>  
-	</div>
-</div>
+					<label for="unidad">Proveedor</label>
+					<select name="idproveedor" id="idproveedor"  class="form-control selectpicker" data-live-search = "true">
+						@foreach($proveedores as $Proveedor)
+							<option value="{{$Proveedor->idproveedor}}">{{$proveedor->nombre}}</option>
+						@endforeach            
+					</select>
+				</div>  
+		</div>
+			
+
 
 
 
@@ -68,52 +53,23 @@
 
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
-					<label for="articulo">Articulo</label>
-					<select name="pidinv"   class="form-control selectpicker" id="pidinv" data-live-search = "true">
-						<option value="art" selected="selected"></option>
-						@foreach($articulos as $articulo)
-							<option value="{{$articulo->id_inventario}}">{{$articulo->descripcion}}</option>
+					<label for="idvehiculo">Vehiculo</label>
+					<select name="pidvehiculo"  id="pidvehiculo" class="form-control selectpicker" data-live-search = "true">
+					
+						<option value="selecciona.." selected="selected"></option>
+						@foreach($vehiculos as $vehiculo)
+							<option value="{{$vehiculo->idvehiculo}}">{{$vehiculo->nombreMarca}}</option>
 						@endforeach            
 					</select>
 			    </div>
 			</div>
-			
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
-					<label>Almacén</label>
-					<select name="pidalmacen"   class="form-control selectpicker" id="pidalmacen" data-live-search = "true">
-						<option value="alma" selected="selected"></option>
-						@foreach($almacenes as $almacen)
-							<option value="{{$almacen->idalmacen}}">{{$almacen->nombre}}</option>
-						@endforeach            
-					</select>
-			    </div>
-			</div>
-
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-				<div class="form-group">
-            	<label for="cantidad">Cantidad</label>
-            	<input type="number" name="pcantidad" id="pcantidad"   class="form-control" placeholder="cantidad...">
+            	<label for="costo">costo</label>
+            	<input type="number" step="any" name="pcosto" id="pcosto"   class="form-control" placeholder="costo...">
             	</div>        
 			</div>
 
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-				<div class="form-group">
-            	<label for="precio">Precio</label>
-            	<input type="number" step="any" name="pprecio" id="pprecio"   class="form-control" placeholder="Precio...">
-            	</div>        
-			</div>
-
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-				<div class="form-group">
-					<label>Impuesto</label>
-					<select name="pimpuesto"   class="form-control " id="pimpuesto" >
-						    <option value="impu" selected="selected"></option>
-							<option value="1.12">12 %</option>
-							<option value="1.00">Excento</option>             
-					</select>
-			    </div>
-			</div>
 
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
@@ -129,18 +85,12 @@
 		<table id="tb_detalles" class= "table table-striped table-bordered table-condensed tale-hover ">
 			<thead style = "background-color:#A9D0F5">
 				<th>Opciones</th>
-				<th>Articulo</th>
-				<th>Almacén</th>
-				<th>Cantidad</th>
-			    <th>Precio</th>
-				<th>Impuesto</th>
+				<th>Vehiculo</th>
+			    <th>Costo</th>
 				<th>Sub. Total</th>
 			</thead>
 				<th>TOTAL</th>
 				<th></th>
-				<th></th>
-				<th></th>
-			    <th></th>
 				<th></th>
 				<th><h4 id="total">Q 0.00</h4></th>
 			<tfoot>
@@ -159,7 +109,8 @@
 		</div>
 	</div>
 </div>
-			{!!Form::close()!!}		
+{!!Form::close()!!}		
+
 @push ('scripts')
 <script>
 
@@ -171,37 +122,31 @@ $(document).ready(function(){
 
 
 var cont = 0;
-total = 0;
+total = 0.00;
 subtotal=[];
 
 $("#guardar").hide();
 
 function agregar(){
+				
 
 
-idarticulo = $('#pidinv').val();
-articulo = $('#pidinv option:selected').text();
-idalmacen = $('#pidalmacen').val();
-almacen = $('#pidalmacen option:selected').text();
-impuesto = $('#pimpuesto').val();
-cantidad = $("#pcantidad").val();
-precio = $("#pprecio").val();
+idvehiculo = $('#pidvehiculo').val();
+vehiculo = $('#pidvehiculo option:selected').text();
+costo = $("#pcosto").val();
 
 
-if(idarticulo != "" && articulo != "" && idalmacen != "" && impuesto !="" && cantidad !="" && precio !="" )
+if(idvehiculo != "" && vehiculo != "" && costo !="" )
 {
 
 
-subtotal[cont] = ((cantidad * precio) * impuesto);
+subtotal[cont] = costo;
 total = total + subtotal[cont];
 
 
 var fila = '<tr class="selected" id = "fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont
-+')">X</button></td><td><input type="hidden" name="idinv[]" value="'+idarticulo+'">'+articulo
-+'</input></td><td><input type="hidden" name="idalmacen[]" value="'+idalmacen+'" >'+almacen
-+'</input></td><td><input type="hidden" name="cantidad[]" value="'+cantidad+'" >'+cantidad
-+'</input></td><td><input type="hidden" name="precio[]" value="'+precio+'" >'+precio
-+'</input></td><td><input type="hidden" name="impuesto[]" value="'+impuesto+'" >'+impuesto
++')">X</button></td><td><input type="hidden" name="idinv[]" value="'+idvehiculo+'">'+vehiculo
++'</input></td><td><input type="hidden" name="costo[]" value="'+costo+'" >'+costo
 +'</input></td><td>'+subtotal[cont]+'</td></tr>'; 
 
 cont++;
@@ -212,19 +157,15 @@ $("#tb_detalles").append(fila);
 }
 else
 {
-	alert("error al ingrear detalle de articulos.");
+	alert("error al ingrear detalle de vehiculos.");
 }
 
 }
 
 function limpiar()
 {
-	$('#pidinv > option[value="art"]').attr('selected', 'selected');
-	$('#pidalmacen > option[value="alma"]').attr('selected', 'selected');
-	$('#pimpuesto > option[value="impu"]').attr('selected', 'selected');
-	
-	$("#pcantidad").val("");
-	$("#pprecio").val("");
+	$('#pidvehiculo > option[value="art"]').attr('selected', 'selected');
+	$("#pcosto").val("");
 	
 }
  function evaluar()

@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 
 use proyectoSeminario\Http\Requests;
 
-use proyectoSeminario\Proveedor;
+use Illuminate\Support\Facades\Redirect;
 use DB;
 use Carbon\Carbon;
+
+use proyectoSeminario\Http\Requests\ProveedorFormRequest;
+use proyectoSeminario\Proveedor;
 
 
 class ProveedorController extends Controller
@@ -41,4 +44,29 @@ class ProveedorController extends Controller
             return view('import/proveedor.index',["proveedores"=>$proveedores,"searchText"=>$query]);
         }
     }
+    public function create()
+    {
+        $tipoDeProveedores = DB::table('tipoprov')->get();
+        return view("import/proveedor.create",["tipoDeProveedores"=>$tipoDeProveedores]);
+    }
+    public function store(ProveedorFormRequest $request)
+    {
+        $date = Carbon::now();
+        $date = $date->toDateString();
+        $proveedor = New Proveedor;
+        $proveedor->nombre = $request->get('nombre');
+        $proveedor->direccion = $request->get('direccion');
+        $proveedor->ciudad = $request->get('ciudad');
+        $proveedor->idtipo = $request->get('idtipo');
+        $proveedor->telefono = $request->get('telefono');
+        $proveedor->nit = $request->get('nit');
+        $proveedor->correo = $request->get('correo');
+        $proveedor->fecha_creacion =  $date;
+        $proveedor->estado = 1 ;
+        $proveedor->save();
+        return Redirect::to('import/proveedor');
+
+
+    }
+    
 }

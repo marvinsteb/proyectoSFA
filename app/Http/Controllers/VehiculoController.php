@@ -46,7 +46,7 @@ class VehiculoController extends Controller
          $marcas = DB::table('marca')->get();
          $modelos = DB::table('modelo')
          ->orderBY('modelo.modelo','desc')->get();
-         $combustibles = DB::table('combustible')->get();  
+         $combustibles = DB::table('combustible')->orderBy('combustible.idcombustible','desc')->get();  
          $colores = DB::table('color')->get(); 
          return view("inventario/vehiculo.create",["marcas" => $marcas
                                                   ,"modelos"=>$modelos

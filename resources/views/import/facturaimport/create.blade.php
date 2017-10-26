@@ -27,16 +27,21 @@
 		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
             	<label for="fechadoc">Fecha del Documento</label>
-            	<input type="text" name="fechadoc" id="fechadoc"   class="form-control" placeholder="Fecha del documento...">
+				<div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker">
+                </div>
             	</div>        
 			</div>
 
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="form-group">
-					<label for="unidad">Proveedor</label>
+					<label for="idproveedor">Proveedor</label>
 					<select name="idproveedor" id="idproveedor"  class="form-control selectpicker" data-live-search = "true">
-						@foreach($proveedores as $Proveedor)
-							<option value="{{$Proveedor->idproveedor}}">{{$proveedor->nombre}}</option>
+						@foreach($proveedores as $proveedor)
+							<option value="{{$proveedor->idproveedor}}">{{$proveedor->nombre}}</option>
 						@endforeach            
 					</select>
 				</div>  
@@ -49,8 +54,6 @@
 <div class = "row">
 	<div class = "panel panel-primary">
 		<div class = "panel-body">
-
-
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
 					<label for="idvehiculo">Vehiculo</label>
@@ -118,9 +121,13 @@ $(document).ready(function(){
     $('#btn_add').click(function(){
 		agregar();
 	});
+	  //Date picker
+	$('#datepicker').datepicker({
+      format: "dd/mm/yyyy",
+      language: "es",
+      autoclose: true
+    })
 });
-
-
 var cont = 0;
 total = 0.00;
 subtotal=[];
@@ -145,13 +152,13 @@ total = total + subtotal[cont];
 
 
 var fila = '<tr class="selected" id = "fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont
-+')">X</button></td><td><input type="hidden" name="idinv[]" value="'+idvehiculo+'">'+vehiculo
++')">X</button></td><td><input type="hidden" name="idvehiculo[]" value="'+idvehiculo+'">'+vehiculo
 +'</input></td><td><input type="hidden" name="costo[]" value="'+costo+'" >'+costo
 +'</input></td><td>'+subtotal[cont]+'</td></tr>'; 
 
 cont++;
 limpiar();
-$("#total").html("Q" + total);
+$("#total").html("Q"+total);
 evaluar();
 $("#tb_detalles").append(fila);	
 }
@@ -181,7 +188,7 @@ function limpiar()
  }
  function eliminar(index)
  {
-   total = total -subtotal[index];
+   total = total - subtotal[index];
    $("#total").html("Q" + total); 
    $("#fila"+index).remove();
    evaluar();

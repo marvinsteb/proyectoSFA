@@ -20,7 +20,7 @@
 								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 									<div class="form-group">
 										<label>Marca</label>
-										<select name="idmarca" class="form-control">
+										<select name="idmarca"  id="idmarca" class="form-control">
 											@foreach($marcas as $marca)
 												<option value="{{$marca->idmarca}}">{{$marca->nombreMarca}}</option>
 											@endforeach            
@@ -30,22 +30,14 @@
 								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 									<div class="form-group">
 										<label>Modelo</label>
-										<select name="idmodelo" class="form-control">
-											@foreach($modelos as $modelo)
-												<option value="{{$modelo->idmodelo}}">{{$modelo->modelo}}</option>
-											@endforeach            
+										<select name="idmodelo" id="idmodelo" class="form-control">
+										  
 										</select>
 									</div>        
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 									<div class="form-group">
-											<label for="costo">Costo de compra</label>
-											<input type="number" step="0.01" name="costo" required value="{{old('costo')}}"  class="form-control" placeholder="costo...">
-										</div>        
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-									<div class="form-group">
-											<label for="precio">Precio estimado de venta</label>
+											<label for="precio">Precio de venta</label>
 											<input type="number" step="0.01" name="precio" required value="{{old('precio')}}"  class="form-control" placeholder="Precio...">
 										</div>        
 								</div>
@@ -124,16 +116,19 @@
 		</div>
 	</div>
 @push ('scripts')
-<script>
-
-$(document).ready(function(){
-   $(function() {
-   $( "#datepikeranio" ).datepicker({dateFormat: 'yy',  changeYear: true,  changeMonth: false});
-});
-});
-
-
-</script>
+	<script>
+		$(document).ready(function(){
+			$("#idmarca").change(event => {	
+			$.get(`/inventario/modelos/${event.target.value}`, function(res, sta){
+				$("#idmodelo").empty();
+				$("#idmodelo").append('<option value="" disabled selected>Selecciona</option>');
+				res.forEach(element => {
+					$("#idmodelo").append(`<option value=${element.idmodelo}> ${element.modelo} </option>`);
+				});
+			});
+		});
+		});
+	</script>
 @endpush
 
 @endsection

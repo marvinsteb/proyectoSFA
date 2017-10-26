@@ -23,6 +23,7 @@ Route::resource('inventario/productoporalmacen','ProductoAlmacenController');
 
 
 Route::resource('inventario/vehiculo','VehiculoController');
+Route::get('inventario/modelos/{id}','VehiculoController@getModelo');
 Route::resource('inventario/marca','MarcaController');
 Route::resource('inventario/color','ColorController');
 Route::resource('inventario/repuesto','RepuestoController');
@@ -37,7 +38,7 @@ Route::resource('configuracion/usuario','UsuarioController');
 
 
 Route::resource('import/importaciones','ImportController');
-Route::resource('import/bl','BlController');
+Route::resource('import/embarque','BlController');
 Route::resource('import/proveedor','ProveedorController');
 
 

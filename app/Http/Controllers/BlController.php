@@ -5,6 +5,7 @@ namespace proyectoSeminario\Http\Controllers;
 use Illuminate\Http\Request;
 
 use proyectoSeminario\Http\Requests;
+use DB;
 
 class BlController extends Controller
 {
@@ -17,78 +18,93 @@ class BlController extends Controller
         if($request)
         {
             $query = trim($request->get('searchText'));
-            $articulos = DB::table('inventario as inve')
-            ->join('categoria as cat','inve.idcategoria','=','cat.idcategoria')
-            ->select('inve.id_inventario','inve.descripcion','inve.unidad','cat.nombre as categoria','inve.estado')
-            ->where('inve.descripcion','LIKE','%'.$query.'%')
-            ->where('inve.estado','=','1')
-            ->orderBy('inve.id_inventario','asc')
+            $embarques = DB::table('embarque')
+            ->select(
+                'embarque.idembarque',
+				'embarque.barcoviaje',
+                'embarque.lugarorigen',
+                'embarque.fechaarribo',
+                'embarque.descripcion',
+                'embarque.numcontenedor',
+                'embarque.fletemaritimo',
+                'embarque.transporteinterno',
+                'embarque.valordocumentacion',
+                'embarque.total',
+                'embarque.cargoservicio',
+                DB::raw('CONCAT(mod.modelo, " ", marca.nombreMarca) as vehiculo')
+                )
+            ->join('vehiculo','embarque.idvehiculo','=','vehiculo.idvehiculo')
+            ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
+            ->join('marca','vehiculo.idmarca','=','marca.idmarca')
+            ->where('embarque.barcoviaje','LIKE','%'.$query.'%')
+
+            ->orderBy('embarque.idembarque','asc')
             ->paginate(7);
-            return view('inventario.articulo.index',["articulos"=>$articulos,"searchText"=>$query]);
+            return view('import.embarque.index',["embarques"=>$embarques,"searchText"=>$query]);
         }
 
     }
     public function create()
     {
         $categorias = DB::table('categoria')->where('condicion','=','1')->get();
-        return view("inventario.articulo.create",["categorias" => $categorias ]);
+        return view("import.embarque.create",["categorias" => $categorias ]);
     }
-    public function store(ArticuloFormRequest $request)
+    public function store(embarqueFormRequest $request)
     {
 
-         $articulo = new Articulo;
-         $articulo->descripcion = $request->get('descripcion');
-         $articulo->unidad = $request->get('unidad');
-         $articulo->idcategoria = $request->get('idcategoria');
-         $articulo->estado = 1 ;
+         $embarque = new embarque;
+         $embarque->descripcion = $request->get('descripcion');
+         $embarque->unidad = $request->get('unidad');
+         $embarque->idcategoria = $request->get('idcategoria');
+         $embarque->estado = 1 ;
          /*
          if(Input::hasFile('imagen'))
          {
             $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
-            $articulo->imagen=$file->getClientOriginalName();
+            $file->move(public_path().'/imagenes/embarques/',$file->getClientOriginalName());
+            $embarque->imagen=$file->getClientOriginalName();
          }
          
          */
-         $articulo->save();
-         return Redirect::to('inventario/articulo');
+         $embarque->save();
+         return Redirect::to('import/embarque');
 
     }
     public function show($id)
     {
        
-       return view("inventario.articulo.show",["articulo"=>Articulo::findOrFail($id)]);
+       return view("import.embarque.show",["embarque"=>embarque::findOrFail($id)]);
     }
     public function edit($id)
     {
-        $articulo = Articulo::findOrFail($id);
+        $embarque = embarque::findOrFail($id);
         $categorias = DB::table('categoria')->where('condicion','=','1')->get();
-        return view("inventario.articulo.edit",["articulo"=>$articulo,"categorias"=>$categorias]);
+        return view("import.embarque.edit",["embarque"=>$embarque,"categorias"=>$categorias]);
     }
-    public function update(ArticuloFormRequest $request, $id)
+    public function update(embarqueFormRequest $request, $id)
     {
-         $articulo = Articulo::findOrFail($id);
-         $articulo->descripcion = $request->get('descripcion');
-         $articulo->unidad = $request->get('unidad');
-         $articulo->idcategoria = $request->get('idcategoria');
-         $articulo->estado = 1 ;
+         $embarque = embarque::findOrFail($id);
+         $embarque->descripcion = $request->get('descripcion');
+         $embarque->unidad = $request->get('unidad');
+         $embarque->idcategoria = $request->get('idcategoria');
+         $embarque->estado = 1 ;
          /*
          if(Input::hasFile('imagen'))
          {
             $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
-            $articulo->imagen=$file->getClientOriginalName();
+            $file->move(public_path().'/imagenes/embarques/',$file->getClientOriginalName());
+            $embarque->imagen=$file->getClientOriginalName();
          }
          
          */
-         $articulo->update();
-         return Redirect::to('inventario/articulo');
+         $embarque->update();
+         return Redirect::to('import/embarque');
     }
     public function destroy($id)
     {
-           $articulo = Articulo::findOrFail($id);
-           $articulo->estado = 0;
-           $articulo->update();
-           return Redirect::to('inventario/articulo');
+           $embarque = embarque::findOrFail($id);
+           $embarque->estado = 0;
+           $embarque->update();
+           return Redirect::to('import/embarque');
     }
 }

@@ -9,6 +9,7 @@
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap-select.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <!-- Theme style -->
@@ -105,7 +106,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="/import/importaciones"><i class="fa fa-circle-o"></i>Factura de Importación</a></li>               
-                <li><a href="/import/bl"><i class="fa fa-circle-o"></i>B.L.</a></li>
+                <li><a href="/import/embarque"><i class="fa fa-circle-o"></i> Embarque  B.L.</a></li>
                 <li><a href="/import/proveedor"><i class="fa fa-circle-o"></i>Proveedores</a></li>
               </ul>
             </li>
@@ -225,8 +226,11 @@
     <!-- Bootstrap 3.3.5 -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
+    
     <!-- AdminLTE App -->
     <script src="{{asset('js/app.min.js')}}"></script>
+    
     
     
   </body>

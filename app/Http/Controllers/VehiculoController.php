@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 
 use proyectoSeminario\Http\Requests\VehiculoFormRequest;
 use proyectoSeminario\Vehiculo;
+use proyectoSeminario\Modelo;
 
 use DB;
 use Carbon\Carbon;
@@ -23,13 +24,23 @@ class VehiculoController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index(Request $request)
     {
         if($request)
         {
             $query = trim($request->get('searchText'));
             $vehiculos = DB::table('vehiculo')
-            ->select('vehiculo.idvehiculo','marca.nombreMarca','vehiculo.costo' ,'vehiculo.precio','vehiculo.numpuertas','combustible.combustible','vehiculo.descripcion','color.color','mod.modelo')
+            ->select(
+                'vehiculo.idvehiculo',
+                'marca.nombreMarca',
+                'vehiculo.costo' ,
+                'vehiculo.precio',
+                'vehiculo.numpuertas',
+                'combustible.combustible'
+                ,'vehiculo.descripcion'
+                ,'color.color'
+                ,'mod.modelo')
             ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
             ->join('marca','vehiculo.idmarca','=','marca.idmarca')
             ->join('combustible','vehiculo.idcombustible','=','combustible.idcombustible')
@@ -44,12 +55,9 @@ class VehiculoController extends Controller
     public function create()
     {
          $marcas = DB::table('marca')->get();
-         $modelos = DB::table('modelo')
-         ->orderBY('modelo.modelo','desc')->get();
          $combustibles = DB::table('combustible')->orderBy('combustible.idcombustible','desc')->get();  
          $colores = DB::table('color')->get(); 
          return view("inventario/vehiculo.create",["marcas" => $marcas
-                                                  ,"modelos"=>$modelos
                                                   ,"combustibles"=>$combustibles
                                                   ,"colores"=>$colores]);
     }
@@ -60,7 +68,7 @@ class VehiculoController extends Controller
         $vehiculo = new Vehiculo;
         $vehiculo->idmarca = $request->get('idmarca');
         $vehiculo->idmodelo = $request->get('idmodelo');
-        $vehiculo->costo = $request->get('costo'); 
+        $vehiculo->costo = 0.00; 
         $vehiculo->precio = $request->get('precio');      
         $vehiculo->anio = $request->get('anio');
         $vehiculo->llave = $request->get('llave');      
@@ -88,11 +96,17 @@ class VehiculoController extends Controller
     }
     public function show($id)
     {
-       
     }
 
     public function destroy($id)
+    {        
+    }
+    public function getModelo(Request $request,$id)
     {
-        
+        if($request->ajax())
+        {
+            $modelos = Modelo::modeloPorMarca($id);
+            return response()->json($modelos);
+        }
     }
 }

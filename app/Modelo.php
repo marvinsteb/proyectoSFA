@@ -11,10 +11,16 @@ class Modelo extends Model
     public $timestamps = false;
     protected $fillable = 
     [
-        'modelo'
+        'modelo',
+        'idmarca'
 
     ];
     protected $guarded = [
        
     ];  
+    public static function modeloPorMarca($idMarca)
+    {
+        return Modelo::where('idmarca','=',$idMarca)
+        ->get();
+    }
 }

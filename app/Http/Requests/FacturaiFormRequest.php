@@ -4,7 +4,7 @@ namespace proyectoSeminario\Http\Requests;
 
 use proyectoSeminario\Http\Requests\Request;
 
-class FacturaFormRequest extends Request
+class FacturaiFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,15 @@ class FacturaFormRequest extends Request
     public function rules()
     {
         return [
-         'nofactura'=>'required',
-         'fechadoc'=>'required',
-         'idproveedor'=>'required',
-         'idvehiculo'=>'required',
-         'costo'=>'required'
+            'codigoserie'=>'required',
+            'fecha_documento'=>'required',
+            'clienteid'=>'required',
+            'vendedorid'=>'required',
+            'idinv'=>'required',
+            'idalmacen'=>'required',
+            'cantidad'=>'required',
+            'precio'=>'required',
+            'impuesto'=>'required',
         ];
     }
 }

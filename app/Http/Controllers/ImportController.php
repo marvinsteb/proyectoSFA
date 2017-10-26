@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 
 use proyectoSeminario\Http\Requests;
 
-// revisar estos links, revisa si se utilizan en este modulo
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
-use proyectoSeminario\Http\Requests\FacturaFormRequest;
-use proyectoSeminario\Factura;
-use proyectoSeminario\FacturaDetalle;
+
+use proyectoSeminario\Http\Requests\FacturaiFormRequest;
+use proyectoSeminario\Facturai;
+use proyectoSeminario\FacturaiDetalle;
+
 use DB;
 use Carbon\Carbon;
 use Response;
@@ -43,7 +44,6 @@ class ImportController extends Controller
     }
     public function create()
     {
-    
         $proveedores = DB::table('proveedor')
                        ->where('proveedor.estado','=','1')
                        ->where('proveedor.idtipo','=','2')->get();
@@ -66,7 +66,7 @@ class ImportController extends Controller
         return view("import/facturaimport.create",["proveedores" => $proveedores,"vehiculos"=>$vehiculos ]);
     }
     
-    public function store(FacturaFormRequest $request)
+    public function store(FacturaiFormRequest $request)
     {
        /*try
         {
@@ -74,9 +74,9 @@ class ImportController extends Controller
        */
                   $date = Carbon::now();
                   $date = $date->toDateString();  
-                  $factura = new Factura;
-                  $factura->codigo_serie = $request->get('codigoserie');
-                  $factura->numero_fac = 1;
+
+                  $factura = new Facturai;
+                  $factura->nofactura = 1;
                   $factura->estado = 1;
                   $factura->fecha_documento = $date;
                   $factura->fecha_creacion = $date; 

@@ -29,14 +29,27 @@ class ImportController extends Controller
         if($request)
         {
             $query = trim($request->get('searchText'));
-            $facturas = DB::table('factura as fac')
-            ->join('serie as ser','fac.codigo_serie','=','ser.idserie')
-            ->join('cliente as clie','fac.cliente_id','=','clie.idcliente')
-            ->join('fac_detalle as dt','fac.idfactura','=','dt.idfactura')
-            ->select('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre',DB::raw('sum((dt.cantidad*dt.precio) * dt.impuesto) as total'))          
-            ->groupBy('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre')
-            ->where('fac.numero_fac','LIKE','%'.$query.'%')
-            ->orderBy('fac.numero_fac','desc')
+            $facturas = DB::table('facturaimport as faci')
+            ->join('facturaimportdetalle as fidt ','faci.idfactura','=','fidt.idfacturaimport')
+            ->join('proveedor as prov','faci.proveedor_id','=','prov.idproveedor')
+            ->select(
+                'faci.idfactura',
+                'faci.nofactura',
+                DB::raw('CASE faci.estado WHEN 1 THEN "ACTIVO" ELSE "ANULADO" END as estado'),
+                'faci.fecha_documento',
+                'faci.fecha_creacion',
+                'prov.nombre',
+                DB::raw('sum(fidt.precio) total')
+                )          
+            ->groupBy(
+                'faci.idfactura',
+                'faci.nofactura',
+                'faci.estado',
+                'faci.fecha_documento',
+                'faci.fecha_creacion',
+                'prov.nombre')
+            ->where('faci.idfactura','LIKE','%'.$query.'%')
+            ->orderBy('faci.idfactura','desc')
             ->paginate(7);
             return view('import/facturaimport.index',["facturas"=>$facturas,"searchText"=>$query]);
         }
@@ -48,16 +61,10 @@ class ImportController extends Controller
                        ->where('proveedor.estado','=','1')
                        ->where('proveedor.idtipo','=','2')->get();
         $vehiculos = DB::table('vehiculo')->where('vehiculo.estado','=','1')
-        ->select('vehiculo.idvehiculo'
-                ,'vehiculo.lote'
-                ,'marca.nombreMarca'
-                ,'vehiculo.costo' 
-                ,'vehiculo.precio'
-                ,'vehiculo.numpuertas'
-                ,'combustible.combustible'
-                ,'vehiculo.descripcion'
-                ,'color.color'
-                ,'mod.modelo')
+        ->select(
+            'vehiculo.idvehiculo',
+            DB::raw('CONCAT(marca.nombreMarca,"-",mod.modelo, "-", vehiculo.lote ) as vehiculo')
+        )
         ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
         ->join('marca','vehiculo.idmarca','=','marca.idmarca')
         ->join('combustible','vehiculo.idcombustible','=','combustible.idcombustible')
@@ -72,37 +79,38 @@ class ImportController extends Controller
         {
             DB::beginTransaction();
        */
-                  $date = Carbon::now();
-                  $date = $date->toDateString();  
+                  $fechaactual = Carbon::now();
+                  $fechaactual = $fechaactual->toDateString();
+
+                  $fechaArribo = $request->get('fechadoc');
+                  $fechaDoc = Carbon::createFromFormat('d/m/Y', $fechaArribo)->format('Y-m-d');
 
                   $factura = new Facturai;
-                  $factura->nofactura = 1;
+                  $factura->nofactura = $request->get("nofactura");
                   $factura->estado = 1;
-                  $factura->fecha_documento = $date;
-                  $factura->fecha_creacion = $date; 
-                  $factura->cliente_id = $request->get('clienteid');
-                  $factura->vendedor_id= $request->get('vendedorid');
+                  $factura->fecha_documento = $fechaDoc;
+                  $factura->fecha_creacion = $fechaactual; 
+                  $factura->proveedor_id = $request->get('idproveedor');
+                  $factura->banco = $request->get('banco');
+                  $factura->nocuentat = $request->get('nocuenta');
+                  $factura->numerotrasferencia = $request->get('notransferencia');
+                  $factura->montotransferencia = $request->get('montoransferencia');
+  
                   $factura->total =  0;
                   $factura->save();
                   
-                  $idarticulo = $request->get('idinv');
-                  $idalmacen = $request->get('idalmacen');
-                  $cantidad = $request->get('cantidad');
-                  $precio = $request->get('precio');
-                  $impuesto = $request->get('impuesto');
+                  $idvehiculo = $request->get('idvehiculo');
+                  $costo = $request->get('costo');
          
                   $contador = 0;
-                  while($contador < count($idarticulo))
+                  while($contador < count($idvehiculo))
                   {
-                    $detalle = new FacturaDetalle;
-                    $detalle->idfactura = $factura->idfactura;
-                    $detalle->id_inv =  $idarticulo[$contador];
-                    $detalle->id_almacen = $idalmacen[$contador];
-                    $detalle->cantidad = $cantidad[$contador];
-                    $detalle->precio = $precio[$contador];
-                    $detalle->impuesto = $impuesto[$contador];
+                    $detalle = new FacturaiDetalle;
+                    $detalle->idfacturaimport = $factura->idfactura;
+                    $detalle->id_vehiculo =  $idvehiculo[$contador];
+                    $detalle->precio = $costo[$contador];
+                    $detalle->subtotal = 0;
                     $detalle->save();
-
                     $contador = $contador + 1;
                   }               
     
@@ -114,7 +122,7 @@ class ImportController extends Controller
             DB::rollback();      
         }  
 ¨*/
-         return Redirect::to('import/facturaimport');
+         return Redirect::to('import/importaciones');
 
     }
     public function show($id)

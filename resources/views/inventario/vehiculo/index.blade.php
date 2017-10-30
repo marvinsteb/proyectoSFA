@@ -13,7 +13,10 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
                     <th>Id</th>
+					<th>Status</th>
                     <th>Marca</th>
+					<th>Modelo</th>
+					<th>Lote</th>
                     <th>Costo</th>
                     <th>Precio</th>
                     <th>No. Puertas</th>
@@ -25,7 +28,10 @@
                @foreach ($vehiculos as $vehiculo)
 				<tr>
 					<td>{{ $vehiculo->idvehiculo}}</td>
+					<td>{{ $vehiculo->estado}}</td>
 					<td>{{ $vehiculo->nombreMarca}}</td>
+					<td>{{ $vehiculo->modelo}}</td>
+					<td>{{ $vehiculo->lote}}</td>					
 					<td>{{ $vehiculo->costo}}</td>
 				    <td>{{ $vehiculo->precio}}</td>
                     <td>{{ $vehiculo->numpuertas}}</td>

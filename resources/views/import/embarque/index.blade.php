@@ -22,8 +22,8 @@
 					<th>Flete Maritimo</th>
 					<th>T. interno</th>
 					<th>Valor Doc.</th>
-					<th>total</th>
-					<th>cargos</th>
+					<th>Total</th>
+					<th>Cargos</th>
 				</thead>
                @foreach ($embarques as $embarque)
 				<tr>

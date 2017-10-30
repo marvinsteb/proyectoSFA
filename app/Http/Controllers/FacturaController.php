@@ -33,7 +33,15 @@ class FacturaController extends Controller
             ->join('serie as ser','fac.codigo_serie','=','ser.idserie')
             ->join('cliente as clie','fac.cliente_id','=','clie.idcliente')
             ->join('fac_detalle as dt','fac.idfactura','=','dt.idfactura')
-            ->select('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre',DB::raw('sum((dt.cantidad*dt.precio) * dt.impuesto) as total'))          
+            ->select(
+                'fac.idfactura'
+                ,'fac.numero_fac'
+                ,'ser.serie'
+                ,'fac.fecha_documento'
+                ,'fac.fecha_creacion'
+                ,'clie.nombre'
+                ,DB::raw('sum((dt.cantidad*dt.costo)) as costo')
+                )          
             ->groupBy('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre')
             ->where('fac.numero_fac','LIKE','%'.$query.'%')
             ->orderBy('fac.numero_fac','desc')
@@ -47,8 +55,16 @@ class FacturaController extends Controller
         $series = DB::table('serie')->where('tipo_documento','=','Fac')->get();
         $clientes = DB::table('cliente')->where('cliente.estado','=','1')->get();
         $vendedores = DB::table('vendedor')->where('vendedor.estado','=','1')->get();
-        $articulos = DB::table('inventario as inve')->where('inve.estado','=','1')->get();
-        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"articulos"=>$articulos ]);
+        $vehiculos = DB::table('vehiculo')
+        ->select(
+            'vehiculo.idvehiculo',
+            DB::raw('CONCAT(marca.nombreMarca,"-",mod.modelo, "-", vehiculo.lote ) as vehiculo')
+            )
+        ->Where('estado','=','6')
+        ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
+        ->join('marca','vehiculo.idmarca','=','marca.idmarca')
+        ->get();
+        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"vehiculos"=>$vehiculos ]);
     }
     
     public function store(FacturaFormRequest $request)
@@ -82,7 +98,7 @@ class FacturaController extends Controller
                     $detalle->idfactura = $factura->idfactura;
                     $detalle->id_inv =  $idarticulo[$contador];
                     $detalle->id_almacen = $idalmacen[$contador];
-                    $detalle->cantidad = $cantidad[$contador];
+                    $detalle->cantidad = 1;
                     $detalle->precio = $precio[$contador];
                     $detalle->impuesto = $impuesto[$contador];
                     $detalle->save();

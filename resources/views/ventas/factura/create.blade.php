@@ -68,34 +68,16 @@
 
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
-					<label for="articulo">Articulo</label>
+					<label for="articulo">Vehiculo</label>
 					<select name="pidinv"   class="form-control selectpicker" id="pidinv" data-live-search = "true">
 						<option value="art" selected="selected"></option>
-						@foreach($articulos as $articulo)
-							<option value="{{$articulo->id_inventario}}">{{$articulo->descripcion}}</option>
-						@endforeach            
-					</select>
-			    </div>
-			</div>
-			
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-				<div class="form-group">
-					<label>Almacén</label>
-					<select name="pidalmacen"   class="form-control selectpicker" id="pidalmacen" data-live-search = "true">
-						<option value="alma" selected="selected"></option>
-						@foreach($almacenes as $almacen)
-							<option value="{{$almacen->idalmacen}}">{{$almacen->nombre}}</option>
+						@foreach($vehiculos as $vehiculo)
+							<option value="{{$vehiculo->idvehiculo}}">{{$vehiculo->vehiculo}}</option>
 						@endforeach            
 					</select>
 			    </div>
 			</div>
 
-			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-				<div class="form-group">
-            	<label for="cantidad">Cantidad</label>
-            	<input type="number" name="pcantidad" id="pcantidad"   class="form-control" placeholder="cantidad...">
-            	</div>        
-			</div>
 
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
@@ -117,6 +99,7 @@
 
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 				<div class="form-group">
+				<br>
 				<button type="button" id="btn_add" class="btn btn-primary" >Agregar</button>
 				</div>
 			</div>
@@ -129,16 +112,12 @@
 		<table id="tb_detalles" class= "table table-striped table-bordered table-condensed tale-hover ">
 			<thead style = "background-color:#A9D0F5">
 				<th>Opciones</th>
-				<th>Articulo</th>
-				<th>Almacén</th>
-				<th>Cantidad</th>
+				<th>Vehiculo</th>
 			    <th>Precio</th>
 				<th>Impuesto</th>
 				<th>Sub. Total</th>
 			</thead>
 				<th>TOTAL</th>
-				<th></th>
-				<th></th>
 				<th></th>
 			    <th></th>
 				<th></th>
@@ -181,32 +160,27 @@ function agregar(){
 
 idarticulo = $('#pidinv').val();
 articulo = $('#pidinv option:selected').text();
-idalmacen = $('#pidalmacen').val();
-almacen = $('#pidalmacen option:selected').text();
 impuesto = $('#pimpuesto').val();
-cantidad = $("#pcantidad").val();
 precio = $("#pprecio").val();
 
 
-if(idarticulo != "" && articulo != "" && idalmacen != "" && impuesto !="" && cantidad !="" && precio !="" )
+if(idarticulo != "" && articulo != "" && impuesto !=""  && precio !="" )
 {
 
 
-subtotal[cont] = ((cantidad * precio) * impuesto);
+subtotal[cont] = ( precio * impuesto);
 total = total + subtotal[cont];
 
 
 var fila = '<tr class="selected" id = "fila'+cont+'"><td><button type="button" class="btn btn-warning" onclick="eliminar('+cont
 +')">X</button></td><td><input type="hidden" name="idinv[]" value="'+idarticulo+'">'+articulo
-+'</input></td><td><input type="hidden" name="idalmacen[]" value="'+idalmacen+'" >'+almacen
-+'</input></td><td><input type="hidden" name="cantidad[]" value="'+cantidad+'" >'+cantidad
 +'</input></td><td><input type="hidden" name="precio[]" value="'+precio+'" >'+precio
 +'</input></td><td><input type="hidden" name="impuesto[]" value="'+impuesto+'" >'+impuesto
-+'</input></td><td>'+subtotal[cont]+'</td></tr>'; 
++'</input></td><td>'+subtotal[cont].toFixed(2)+'</td></tr>'; 
 
 cont++;
 limpiar();
-$("#total").html("Q" + total);
+$("#total").html("Q" + total.toFixed(2));
 evaluar();
 $("#tb_detalles").append(fila);	
 }
@@ -220,10 +194,7 @@ else
 function limpiar()
 {
 	$('#pidinv > option[value="art"]').attr('selected', 'selected');
-	$('#pidalmacen > option[value="alma"]').attr('selected', 'selected');
 	$('#pimpuesto > option[value="impu"]').attr('selected', 'selected');
-	
-	$("#pcantidad").val("");
 	$("#pprecio").val("");
 	
 }
@@ -241,7 +212,7 @@ function limpiar()
  function eliminar(index)
  {
    total = total -subtotal[index];
-   $("#total").html("Q" + total); 
+   $("#total").html("Q" + total.toFixed(2)); 
    $("#fila"+index).remove();
    evaluar();
  }

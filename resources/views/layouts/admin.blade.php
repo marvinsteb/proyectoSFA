@@ -107,7 +107,10 @@
               <ul class="treeview-menu">
                 <li><a href="/import/importaciones"><i class="fa fa-circle-o"></i>Factura de Importación</a></li>               
                 <li><a href="/import/embarque"><i class="fa fa-circle-o"></i> Embarque  B.L.</a></li>
+                <li><a href="/import/aduanero"><i class="fa fa-circle-o"></i>Documento aduanero</a></li>
                 <li><a href="/import/proveedor"><i class="fa fa-circle-o"></i>Proveedores</a></li>
+                
+                
               </ul>
             </li>
 

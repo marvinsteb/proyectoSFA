@@ -8,7 +8,7 @@ class FacturaiDetalle extends Model
 {
     protected $table = 'facturaimportdetalle';
     protected $primaryKey = 'idfacturaimportdetalle';
-    public $timestams = false;
+    public $timestamps = false ;
     protected $filleable = [
         'idfacturaimport',
         'id_vehiculo',

@@ -8,13 +8,17 @@ class Facturai extends Model
 {
     protected $table = 'facturaimport';
     protected $primaryKey = 'idfactura';
-    public $timestamps = false;
+    public $timestamps = false ;
     protected $filleable = [
                             'nofactura',
                             'estado',
                             'fecha_documento',
                             'fecha_creacion',
                             'proveedor_id',
+                            'banco',
+                            'numerotrasferencia',
+                            'montotransferencia',
+                            'nocuentat',
                             'total'
                         ];
 }

@@ -45,65 +45,67 @@ class RepuestoController extends Controller
     }
     public function create()
     {
-        $categorias = DB::table('categoria')->where('condicion','=','1')->get();
-        return view("inventario.articulo.create",["categorias" => $categorias ]);
+        $tiposdereparacion = DB::table('tiporeparacion')
+        ->get();
+        $marcas = DB::table('marca')->get();
+        return view("inventario.repuesto.create",["tiposdereparacion" => $tiposdereparacion,"marcas"=>$marcas ]);
     }
-    public function store(ArticuloFormRequest $request)
+    public function store(repuestoFormRequest $request)
     {
 
-         $articulo = new Articulo;
-         $articulo->descripcion = $request->get('descripcion');
-         $articulo->unidad = $request->get('unidad');
-         $articulo->idcategoria = $request->get('idcategoria');
-         $articulo->estado = 1 ;
+         $repuesto = new repuesto;
+         $repuesto->descripcion = $request->get('descripcion');
+         $repuesto->unidad = $request->get('unidad');
+         $repuesto->idcategoria = $request->get('idcategoria');
+         $repuesto->estado = 1 ;
          /*
          if(Input::hasFile('imagen'))
          {
             $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
-            $articulo->imagen=$file->getClientOriginalName();
+            $file->move(public_path().'/imagenes/repuestos/',$file->getClientOriginalName());
+            $repuesto->imagen=$file->getClientOriginalName();
          }
          
          */
-         $articulo->save();
-         return Redirect::to('inventario/articulo');
+         $repuesto->save();
+         return Redirect::to('inventario/repuesto');
 
     }
     public function show($id)
     {
        
-       return view("inventario.articulo.show",["articulo"=>Articulo::findOrFail($id)]);
+       return view("inventario.repuesto.show",["repuesto"=>repuesto::findOrFail($id)]);
     }
     public function edit($id)
     {
-        $articulo = Articulo::findOrFail($id);
-        $categorias = DB::table('categoria')->where('condicion','=','1')->get();
-        return view("inventario.articulo.edit",["articulo"=>$articulo,"categorias"=>$categorias]);
+        $repuesto = repuesto::findOrFail($id);
+        $tiposdereparacion = DB::table('categoria')->where('condicion','=','1')->get();
+        return view("inventario.repuesto.edit",["repuesto"=>$repuesto,"tiposdereparacion"=>$tiposdereparacion]);
     }
-    public function update(ArticuloFormRequest $request, $id)
+    public function update(repuestoFormRequest $request, $id)
     {
-         $articulo = Articulo::findOrFail($id);
-         $articulo->descripcion = $request->get('descripcion');
-         $articulo->unidad = $request->get('unidad');
-         $articulo->idcategoria = $request->get('idcategoria');
-         $articulo->estado = 1 ;
+         $repuesto = repuesto::findOrFail($id);
+         $repuesto->descripcion = $request->get('descripcion');
+         $repuesto->unidad = $request->get('unidad');
+         $repuesto->idcategoria = $request->get('idcategoria');
+         $repuesto->estado = 1 ;
          /*
          if(Input::hasFile('imagen'))
          {
             $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/articulos/',$file->getClientOriginalName());
-            $articulo->imagen=$file->getClientOriginalName();
+            $file->move(public_path().'/imagenes/repuestos/',$file->getClientOriginalName());
+            $repuesto->imagen=$file->getClientOriginalName();
          }
          
          */
-         $articulo->update();
-         return Redirect::to('inventario/articulo');
+         $repuesto->update();
+         return Redirect::to('inventario/repuesto');
     }
     public function destroy($id)
     {
-           $articulo = Articulo::findOrFail($id);
-           $articulo->estado = 0;
-           $articulo->update();
-           return Redirect::to('inventario/articulo');
+           $repuesto = repuesto::findOrFail($id);
+           $repuesto->estado = 0;
+           $repuesto->update();
+           return Redirect::to('inventario/repuesto');
     }
 }

@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 
 use proyectoSeminario\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\repades\Input;
+use proyectoSeminario\Reparacion;
+use proyectoSeminario\Vehiculo;
+use proyectoSeminario\ReparacionDetalle;
 use DB;
 use Carbon\Carbon;
 use Response;
@@ -23,67 +26,85 @@ class ReparacionController extends Controller
         if($request)
         {
             $query = trim($request->get('searchText'));
-            $facturas = DB::table('factura as fac')
-            ->join('serie as ser','fac.codigo_serie','=','ser.idserie')
-            
-            ->join('cliente as clie','fac.cliente_id','=','clie.idcliente')
-            ->join('fac_detalle as dt','fac.idfactura','=','dt.idfactura')
-            ->select('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre',DB::raw('sum((dt.cantidad*dt.precio) * dt.impuesto) as total'))          
-            ->groupBy('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre')
-            ->where('fac.numero_fac','LIKE','%'.$query.'%')
-            ->orderBy('fac.numero_fac','desc')
+            $reparaciones = DB::table('reparacion as rep')
+            ->select(
+                'rep.idreparacion',
+                'rep.fecha_inicio',
+                'rep.fecha_fin',
+                DB::raw('sum((rdeta.cantidad*rdeta.costo)) as costoreal'),
+                DB::raw('CONCAT(marca.nombreMarca," ",mod.modelo) as vehiculo')
+                )
+            ->join('reparacion_detalle as rdeta','rdeta.idreparacion','=','rep.idreparacion')
+            ->join('vehiculo as vehi','rep.idvehiculo','=','vehi.idvehiculo')
+            ->join('modelo as mod','mod.idmodelo','=','vehi.idmodelo' )
+            ->join('marca','vehi.idmarca','=','marca.idmarca')
+            ->groupBy(               
+            'rep.idreparacion',
+            'rep.fecha_inicio',
+            'rep.fecha_fin')
+           ->where('marca.nombreMarca','LIKE','%'.$query.'%')
             ->paginate(7);
-            return view('taller/reparacion.index',["facturas"=>$facturas,"searchText"=>$query]);
+            return view('taller/reparacion.index',["reparaciones"=>$reparaciones,"searchText"=>$query]);
         }
 
     }
     public function create()
     {
-        $series = DB::table('serie')->where('tipo_documento','=','Fac')->get();
-        $clientes = DB::table('cliente')->where('cliente.estado','=','1')->get();
-        $vendedores = DB::table('vendedor')->where('vendedor.estado','=','1')->get();
-        $articulos = DB::table('inventario as inve')->where('inve.estado','=','1')->get();
-        return view("ventas/factura.create",["series" => $series,"clientes" => $clientes, "vendedores" => $vendedores,"articulos"=>$articulos ]);
+        $vehiculos = DB::table('vehiculo')
+        ->select(
+            'vehiculo.idvehiculo',
+            DB::raw('CONCAT(marca.nombreMarca,"-",mod.modelo, "-", vehiculo.lote ) as vehiculo')
+            )
+        ->where('estado','=','4')
+        ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
+        ->join('marca','vehiculo.idmarca','=','marca.idmarca')
+        ->get();
+        $tipodereparaciones = DB::table('tiporeparacion')->get();
+        $repuestos = DB::table('repuesto')->get();
+        return view("taller/reparacion.create",["vehiculos" => $vehiculos,"tipodereparaciones" => $tipodereparaciones,"repuestos" => $repuestos ]);
     }
     
-    public function store(FacturaFormRequest $request)
+    public function store(Request $request)
     {
        /*try
         {
             DB::beginTransaction();
+      'idreparacion',
+      'idtiporeparacion',
+      'fecha_inicio',
+      'fecha_fin',
+      'costoestimado',
+      'desviacion',
+      'costoreal',
+      'idvehiculo',
+                 $calculoCostoReal = 
        */
-                  $date = Carbon::now();
-                  $date = $date->toDateString();  
-                  $factura = new Factura;
-                  $factura->codigo_serie = $request->get('codigoserie');
-                  $factura->numero_fac = 1;
-                  $factura->estado = 1;
-                  $factura->fecha_documento = $date;
-                  $factura->fecha_creacion = $date; 
-                  $factura->cliente_id = $request->get('clienteid');
-                  $factura->vendedor_id= $request->get('vendedorid');
-                  $factura->total =  0;
-                  $factura->save();
-                  
-                  $idarticulo = $request->get('idinv');
-                  $cantidad = $request->get('cantidad');
-                  $precio = $request->get('precio');
-                  $impuesto = $request->get('impuesto');
-         
-                  $contador = 0;
-                  while($contador < count($idarticulo))
-                  {
-                    $detalle = new FacturaDetalle;
-                    $detalle->idfactura = $factura->idfactura;
-                    $detalle->id_inv =  $idarticulo[$contador];
-                    $detalle->id_almacen = $idalmacen[$contador];
-                    $detalle->cantidad = $cantidad[$contador];
-                    $detalle->precio = $precio[$contador];
-                    $detalle->impuesto = $impuesto[$contador];
-                    $detalle->save();
 
-                    $contador = $contador + 1;
-                  }               
+
+                 $reparacion = new Reparacion;
+                 $reparacion->idvehiculo = $request->idvehiculo;
+                 $reparacion->idtiporeparacion = $request->idtiporapracion;
+                 $reparacion->fecha_inicio = Carbon::createFromFormat('d/m/Y',  $request->get('fechainicio'))->format('Y-m-d'); 
+                 $reparacion->save();
+                  
+                 $idrepuesto = $request->get('idrepuesto');
+                 $cantidad = $request->get('cantidad');
+                 $costo = $request->get('costo');
+                 $descripcion = $request->get('descripcion');
+         
+                 $contador = 0;
+                 while($contador < count($idrepuesto))
+                 {
+                   $detalle = new ReparacionDetalle;
+                   $detalle->idreparacion = $reparacion->idreparacion;
+                   $detalle->idrepuesto =  $idrepuesto[$contador];
+                   $detalle->cantidad = $cantidad[$contador];
+                   $detalle->costo = $costo[$contador];
+                   $detalle->descripcion = $descripcion[$contador];
+                   $detalle->save();
+
+                   $contador = $contador + 1;
+                 }               
     
     /*        DB::commit();
    
@@ -93,33 +114,38 @@ class ReparacionController extends Controller
             DB::rollback();      
         }  
 ¨*/
-         return Redirect::to('ventas/factura');
+         return Redirect::to('taller/reparacion');
 
     }
     public function show($id)
     {
-        $factura = DB::table('factura as fac')
-            ->join('serie as ser','fac.codigo_serie','=','ser.idserie')
-            ->join('cliente as clie','fac.cliente_id','=','clie.idcliente')
-            ->join('fac_detalle as dt','fac.idfactura','=','dt.idfactura')
-            ->select('fac.idfactura','fac.numero_fac','ser.serie','fac.fecha_documento','fac.fecha_creacion','clie.nombre',DB::raw('sum(dt.cantidad*dt.precio) as total'))  
-            ->where('fac.idfactura','=', $id)
-            ->first();
+       $reparacion = DB::table('reparacion as rep')
+           ->join('serie as ser','rep.codigo_serie','=','ser.idserie')
+           ->join('cliente as clie','rep.cliente_id','=','clie.idcliente')
+           ->join('rep_detalle as dt','rep.idreparacion','=','dt.idreparacion')
+           ->select('rep.idreparacion','rep.numero_rep','ser.serie','rep.fecha_documento','rep.fecha_creacion','clie.nombre',DB::raw('sum(dt.cantidad*dt.costo) as total'))  
+           ->where('rep.idreparacion','=', $id)
+           ->first();
        
-       $detalle =DB::table('fac_detalle as dt')
-                ->join('inventario as articulos','dt.id_inv'.'=','articulos.id_inventario')
-                ->join('categoria','categoria.idcategoria','=','articulos.idcategoria')
-                ->select('articulos.descripcion','articulos.unidad','categoria.nombre','dt.cantidad','dt.precio')
-                ->where('dt.idfactura','=',$id)
-                ->get();
-       return view("ventas/factura.show",["cliente"=>$factura,"detalles"=>$detalle]);
+      $detalle =DB::table('rep_detalle as dt')
+               ->join('inventario as articulos','dt.id_inv'.'=','articulos.id_inventario')
+               ->join('categoria','categoria.idcategoria','=','articulos.idcategoria')
+               ->select('articulos.descripcion','articulos.unidad','categoria.nombre','dt.cantidad','dt.costo')
+               ->where('dt.idreparacion','=',$id)
+               ->get();
+      return view("taller/reparacion.show",["cliente"=>$reparacion,"detalles"=>$detalle]);
     }
 
     public function destroy($id)
     {
-           $factura = Factura::findOrFail($id);
-           $factura->estado = 0;
-           $factura->update();
-           return Redirect::to('ventas/factura');
+        $date = Carbon::now();
+        $date = $date->toDateString();  
+        $reparacion = Reparacion::findOrFail($id);
+        $reparacion->fecha_fin = $date;
+        $reparacion->update();
+        $vehiculo = Vehiculo::findOrFail($reparacion->idvehiculo);
+        $vehiculo->estado = 6;
+        $vehiculo->update();
+        return Redirect::to('taller/reparacion');
     }
 }

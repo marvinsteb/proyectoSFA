@@ -12,31 +12,29 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
                     <th>Numero</th>
-                    <th>Serie</th>
-                    <th>Fecha Documento</th>
-                    <th>Fecha Creacion</th>
-                    <th>Cliente</th>
-                    <th>Total</th>
+                    <th>Fecha Inicio</th>
+                	<th>Fecha de finalización</th>
+                    <th>costo</th>
+                    <th>Vehiculo</th>
 					<th>Opciones</th>
 				</thead>
-               @foreach ($facturas as $factura)
+               @foreach ($reparaciones as $rep)
 				<tr>
-					<td>{{ $factura->numero_fac}}</td>
-					<td>{{ $factura->serie}}</td>
-					<td>{{ $factura->fecha_documento}}</td>
-				    <td>{{ $factura->fecha_creacion}}</td>
-                    <td>{{ $factura->nombre}}</td>
-                    <td>{{ $factura->total}}</td>
+					<td>{{ $rep->idreparacion}}</td>
+					<td>{{ $rep->fecha_inicio}}</td>
+					<td>{{ $rep->fecha_fin}}</td>
+				    <td>{{ $rep->costoreal}}</td>
+					<td>{{ $rep->vehiculo}}</td>
 					<td>
-						 	<a href="{{URL::action('FacturaController@show',$factura->idfactura)}}"><button class="btn btn-primary">Detalles</button></a>
-                         <a href="" data-target="#modal-delete-{{$factura->idfactura}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>
+						<a href="{{URL::action('ReparacionController@show',$rep->idreparacion)}}"><button class="btn btn-primary">Detalles</button></a>
+                        <a href="" data-target="#modal-delete-{{$rep->idreparacion}}" data-toggle="modal"><button class="btn btn-danger">Finalizar</button></a>
 					</td>
 				</tr>
 				@include('taller.reparacion.modal')
 				@endforeach
 			</table>
 		</div>
-		{{$facturas->render()}}
+		{{$reparaciones->render()}}
 	</div>
 </div>
 

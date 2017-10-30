@@ -33,7 +33,10 @@ class VehiculoController extends Controller
             $vehiculos = DB::table('vehiculo')
             ->select(
                 'vehiculo.idvehiculo',
+                'estado.estado',
                 'marca.nombreMarca',
+                'mod.modelo',
+                'vehiculo.lote',
                 'vehiculo.costo' ,
                 'vehiculo.precio',
                 'vehiculo.numpuertas',
@@ -43,6 +46,7 @@ class VehiculoController extends Controller
                 ,'mod.modelo')
             ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
             ->join('marca','vehiculo.idmarca','=','marca.idmarca')
+            ->join('estado','estado.idestado','=','vehiculo.estado')
             ->join('combustible','vehiculo.idcombustible','=','combustible.idcombustible')
             ->join('color','vehiculo.idcolor','=','color.idcolor')
             ->where('marca.nombreMarca','LIKE','%'.$query.'%')

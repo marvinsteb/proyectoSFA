@@ -39,6 +39,7 @@ Route::resource('configuracion/usuario','UsuarioController');
 
 Route::resource('import/importaciones','ImportController');
 Route::resource('import/embarque','BlController');
+Route::resource('import/aduanero', 'AduaneroController');
 Route::resource('import/proveedor','ProveedorController');
 
 
@@ -47,8 +48,5 @@ Route::resource('taller/comprarepuesto','CompraRepuestoController');
 
 Route::auth();
 
-Route::get('test/datepicker', function () {
-    return view('datepicker');
-});
 //Route::get('/home', 'HomeController@index');
 

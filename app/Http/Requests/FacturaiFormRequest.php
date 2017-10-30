@@ -24,15 +24,11 @@ class FacturaiFormRequest extends Request
     public function rules()
     {
         return [
-            'codigoserie'=>'required',
-            'fecha_documento'=>'required',
-            'clienteid'=>'required',
-            'vendedorid'=>'required',
-            'idinv'=>'required',
-            'idalmacen'=>'required',
-            'cantidad'=>'required',
-            'precio'=>'required',
-            'impuesto'=>'required',
+            'nofactura'=>'required',
+            'fechadoc'=>'required',
+            'idproveedor'=>'required',
+            'pidvehiculo'=>'required',
+            'costo'=>'required',
         ];
     }
 }

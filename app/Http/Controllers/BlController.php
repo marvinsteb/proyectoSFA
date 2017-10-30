@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use proyectoSeminario\Http\Requests;
 use DB;
+use proyectoSeminario\Http\Requests\EmbarqueFormRequest;
+use proyectoSeminario\Embarque;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Redirect;
 
 class BlController extends Controller
 {
@@ -31,7 +35,7 @@ class BlController extends Controller
                 'embarque.valordocumentacion',
                 'embarque.total',
                 'embarque.cargoservicio',
-                DB::raw('CONCAT(mod.modelo, " ", marca.nombreMarca) as vehiculo')
+                DB::raw('CONCAT(marca.nombreMarca,"-",mod.modelo, "-", vehiculo.lote ) as vehiculo')
                 )
             ->join('vehiculo','embarque.idvehiculo','=','vehiculo.idvehiculo')
             ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
@@ -46,65 +50,66 @@ class BlController extends Controller
     }
     public function create()
     {
-        $categorias = DB::table('categoria')->where('condicion','=','1')->get();
-        return view("import.embarque.create",["categorias" => $categorias ]);
+        $vehiculos = DB::table('vehiculo')
+        ->select(
+            'vehiculo.idvehiculo',
+            DB::raw('CONCAT(marca.nombreMarca,"-",mod.modelo, "-", vehiculo.lote ) as vehiculo')
+            )
+        ->where('estado','=','2')
+        ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
+        ->join('marca','vehiculo.idmarca','=','marca.idmarca')
+        ->get();
+        return view("import.embarque.create",["vehiculos" => $vehiculos ]);
     }
-    public function store(embarqueFormRequest $request)
+    public function store(EmbarqueFormRequest $request)
     {
+        $flete = $request->get('fletemaritimo');
+        $transporte = $request->get('transporteinterno');
+        $valordoc = $request->get('valordocumentacion');
+        $cargos = $request->get('cargosservicio');
+        $total = $flete + $transporte + $valordoc + $cargos ;
+        
+        $fechaArribo = $request->get('fechaarribo');
+        $date = Carbon::createFromFormat('d/m/Y', $fechaArribo)->format('Y-m-d');
 
-         $embarque = new embarque;
+         $embarque = new Embarque;
+         $embarque->barcoviaje = $request->get('barcoviaje');
+         $embarque->lugarorigen = $request->get('lugarorigen');
+         $embarque->idvehiculo = $request->get('idvehiculo');        
+         $embarque->fechaarribo = $date;
          $embarque->descripcion = $request->get('descripcion');
-         $embarque->unidad = $request->get('unidad');
-         $embarque->idcategoria = $request->get('idcategoria');
-         $embarque->estado = 1 ;
-         /*
-         if(Input::hasFile('imagen'))
-         {
-            $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/embarques/',$file->getClientOriginalName());
-            $embarque->imagen=$file->getClientOriginalName();
-         }
-         
-         */
+         $embarque->numcontenedor = $request->get('numcontenedor');
+         $embarque->fletemaritimo = $flete;
+         $embarque->transporteinterno = $transporte;
+         $embarque->valordocumentacion = $valordoc;
+         $embarque->cargoservicio = $cargos;
+         $embarque->total = $total;
          $embarque->save();
          return Redirect::to('import/embarque');
 
     }
     public function show($id)
     {
-       
-       return view("import.embarque.show",["embarque"=>embarque::findOrFail($id)]);
+      // return view("import.embarque.show",["embarque"=>embarque::findOrFail($id)]);
     }
     public function edit($id)
     {
         $embarque = embarque::findOrFail($id);
-        $categorias = DB::table('categoria')->where('condicion','=','1')->get();
-        return view("import.embarque.edit",["embarque"=>$embarque,"categorias"=>$categorias]);
+        $vehiculos = DB::table('vehiculo')
+        ->select(
+            'vehiculo.idvehiculo',
+            DB::raw('CONCAT(mod.modelo, " ", marca.nombreMarca) as vehiculo')
+            )
+        ->where('estado','=','2')
+        ->join('modelo as mod','mod.idmodelo','=','vehiculo.idmodelo' )
+        ->join('marca','vehiculo.idmarca','=','marca.idmarca')
+        ->get();
+        return view("import.embarque.edit",["embarque"=>$embarque,"vehiculos"=>$vehiculos]);
     }
     public function update(embarqueFormRequest $request, $id)
     {
-         $embarque = embarque::findOrFail($id);
-         $embarque->descripcion = $request->get('descripcion');
-         $embarque->unidad = $request->get('unidad');
-         $embarque->idcategoria = $request->get('idcategoria');
-         $embarque->estado = 1 ;
-         /*
-         if(Input::hasFile('imagen'))
-         {
-            $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/embarques/',$file->getClientOriginalName());
-            $embarque->imagen=$file->getClientOriginalName();
-         }
-         
-         */
-         $embarque->update();
-         return Redirect::to('import/embarque');
     }
     public function destroy($id)
     {
-           $embarque = embarque::findOrFail($id);
-           $embarque->estado = 0;
-           $embarque->update();
-           return Redirect::to('import/embarque');
     }
 }

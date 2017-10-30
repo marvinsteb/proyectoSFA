@@ -1,7 +1,7 @@
-{!! Form::open(array('url'=>'import/proveedor','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
+{!! Form::open(array('url'=>'import/embarque','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!}
 <div class="form-group">
 	<div class="input-group">
-		<input type="text" class="form-control" name="searchText" placeholder="Buscar en Proveedores..." value="{{$searchText}}">
+		<input type="text" class="form-control" name="searchText" placeholder="Buscar en Embarques..." value="{{$searchText}}">
 		<span class="input-group-btn">
 			<button type="submit" class="btn btn-primary">Buscar</button>
 		</span>

@@ -1,6 +1,6 @@
 <div class="modal fade modal-slide-in-right" aria-hidden="true"
-role="dialog" tabindex="-1" id="modal-delete-{{$factura->idfactura}}">
-	{{Form::Open(array('action'=>array('FacturaController@destroy',$factura->idfactura),'method'=>'delete'))}}
+role="dialog" tabindex="-1" id="modal-delete-{{$rep->idreparacion}}">
+	{{Form::Open(array('action'=>array('ReparacionController@destroy',$rep->idreparacion),'method'=>'delete'))}}
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -8,10 +8,10 @@ role="dialog" tabindex="-1" id="modal-delete-{{$factura->idfactura}}">
 				aria-label="Close">
                      <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title">Anular  factura</h4>
+                <h4 class="modal-title">Finalizar reparacion</h4>
 			</div>
 			<div class="modal-body">
-				<p>Confirme si desea Anular la factura</p>
+				<p>Confirme si desea Finalizar reparacion</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

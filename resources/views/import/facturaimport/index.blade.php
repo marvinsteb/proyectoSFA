@@ -11,8 +11,9 @@
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
+					<th>ID</th>
                     <th>Numero</th>
-                    <th>Serie</th>
+                    <th>Estado</th>
                     <th>Fecha Documento</th>
                     <th>Fecha Creacion</th>
                     <th>Cliente</th>
@@ -21,8 +22,9 @@
 				</thead>
                @foreach ($facturas as $factura)
 				<tr>
-					<td>{{ $factura->numero_fac}}</td>
-					<td>{{ $factura->serie}}</td>
+					<td>{{ $factura->idfactura}}</td>
+					<td>{{ $factura->nofactura}}</td>
+					<td>{{ $factura->estado}}</td>
 					<td>{{ $factura->fecha_documento}}</td>
 				    <td>{{ $factura->fecha_creacion}}</td>
                     <td>{{ $factura->nombre}}</td>

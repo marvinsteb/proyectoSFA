@@ -1,0 +1,3 @@
+SET FOREIGN_KEY_CHECKS = 0; 
+TRUNCATE table facturaimport; 
+SET FOREIGN_KEY_CHECKS = 1;
